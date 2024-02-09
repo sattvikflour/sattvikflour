@@ -1,0 +1,62 @@
+.btn-rectangles {
+    border-radius: 20px; /* Adjust the border-radius for curved corners */
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-rectangles:hover {
+    transform: scale(1.05);
+    background-color: #4caf50; /* Change the background color on hover */
+    color: #ffffff; /* Change the text color on hover */
+}
+
+/* Custom CSS for product order page */
+.mt-5 {
+    margin-top: 5rem !important; /* Adjust the top margin as needed */
+}
+
+.img-fluid {
+    max-width: 100%; /* Make the product image responsive */
+    border-radius: 10px; /* Add border-radius for a rounded image effect */
+}
+
+.packing-options , .grinding-options{
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.form-check {
+    margin-bottom: 10px;
+}
+
+.order-quantity {
+    margin-top: 20px;
+}
+
+.btn-rectangle {
+    border-radius: 20px;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.btn-rectangle:hover {
+    transform: scale(1.05);
+    background-color: #4caf50;
+    color: #ffffff;
+}
+
+
+#cartModal {
+    max-width: 600px;
+    margin: auto;
+}
+
+.cart-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.total-price {
+    font-weight: bold;
+}

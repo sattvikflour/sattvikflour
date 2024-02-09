@@ -1,0 +1,35 @@
+/* Custom CSS for product cards */
+.card {
+    height: 100%;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    object-fit: cover;
+    height: 200px; /* Set a fixed height for the images */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.card-title {
+    margin-top: 10px;
+}
+
+.btn-primary {
+    width: 80%; /* Adjust the width of the Buy Now button */
+}
+
+/* Optional: Add some box shadow for a subtle card effect */
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
