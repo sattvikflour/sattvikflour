@@ -20,7 +20,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $category->category_name }}</h5>
                     {{-- <p class="card-text">{{ $category->product_price }}</p> --}}
-                    <a href="#" class="btn btn-primary btn-block">Order Now Now</a>
+                    <a href="#" class="btn btn-primary btn-block">Order Now</a>
                 </div>
             </div>
         </div>
