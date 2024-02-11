@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PracticeController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,15 +27,27 @@ use Illuminate\Support\Facades\Route;
 //     return view('website.home');
 // });
 
-Route::get('/',[CommonController::class,'index'])->name('index');
+Route::get('/',[CommonController::class,'index'])->name('home');
+Route::get('/login', [LoginController::class, 'loginForm'])->name('login');
+Route::post('/login-submit', [LoginController::class, 'loginSubmit'])->name('login.submit');
+
 Route::get('/category/{category_url}',[CommonController::class,'productList'])->name('category_url');
 Route::get('/product/{prod_id}',[CommonController::class,'productDetails'])->name('prod_id');
 
 Route::get('/register', [RegisterController::class, 'registrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('registration-submit');
 
-Route::get('/login', [LoginController::class, 'loginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login-submit');
+
+Route::post('/add-to-cart', [CartController::class,'addToCart']);
+Route::get('/practice', [PracticeController::class,'viewPractice']);
+
+Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout');
+
+//Admin Routes
+Route::middleware('admin')->group(function () {
+
+Route::get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+Route::get('/admin/logout',[AdminController::class,'adminLogout'])->name('admin.logout');
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.view');
 Route::get('/products',[ProductController::class, 'index'])->name('products');
@@ -51,7 +64,4 @@ Route::post('/product/store',[ProductController::class,'store'])->name('product.
 Route::get('/product/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
 Route::post('/product/update/{id}',[ProductController::class,'update'])->name('product.update');
 
-Route::post('/add-to-cart', [CartController::class,'addToCart']);
-Route::get('/practice', [PracticeController::class,'viewPractice']);
-
-Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout');
+});

@@ -1,0 +1,64 @@
+.welcome-text {
+    margin-right: auto;
+}
+
+.sidebar {
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    background: linear-gradient(#1aac92, #94c840);
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px; /* Add spacing between the navbar and the first option */
+}
+
+.sidebar ul li {
+    padding: 10px;
+    position: relative;
+    font-size: 18px; 
+}
+
+.sidebar ul li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.content {
+    margin-top: 56px;
+    margin-left: 210px;
+    padding: 20px;
+}
+.modal-dialog.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100% - 1rem);
+    margin: 0 auto;
+}
+
+.modal-content {
+    width: 80%;
+    max-width: 400px; /* Adjust the max-width as needed */
+}
+
+.modal-body {
+    border-bottom: none; /* Remove horizontal line */
+}
+
+.modal-footer {
+    border-top: none; /* Remove horizontal line */
+}
