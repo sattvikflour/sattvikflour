@@ -18,9 +18,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
         'email',
         'password',
+        'mobile',
+        'address',
+        'city',
+        'profile_img',
     ];
 
     /**
@@ -30,7 +35,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -39,7 +43,16 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        // 'password' => 'hashed',
     ];
+
+    public function getFirstnameAttribute($value)
+    {
+        return ucwords($value);
+    }
+
+    public function getLastnameAttribute($value)
+    {
+        return ucwords($value);
+    }
 }

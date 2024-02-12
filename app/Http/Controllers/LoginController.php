@@ -24,6 +24,7 @@ class LoginController extends Controller
 
     public function loginSubmit(Request $request)
     {
+        // dd($request);
         $request->validate([
             'username' => 'required',
             'password' => 'required|min:6',
@@ -45,7 +46,7 @@ class LoginController extends Controller
                 Auth::guard($authGuard)->login($user);
 
                 User::where('id', $user->id)->update(['last_access_at' => now()]);
-                Session::put(['username' => $user->mobile, 'id' => $user->id, 'role' => $user->role]);
+                Session::put(['firstname' => $user->firstname, 'username' => $user->mobile, 'id' => $user->id, 'role' => $user->role]);
                 if ($user->role == 'admin') {
                     return redirect()->route('admin.dashboard');
                 } elseif ($user->role == 'user') {
@@ -65,6 +66,15 @@ class LoginController extends Controller
                 ]);
         }
     }
+
+    public function logout(Request $request){
+        Auth::logout(); // Log out the user
+
+        $request->session()->invalidate(); // Invalidate the session
+        $request->session()->regenerateToken(); // Regenerate CSRF token
+
+        return redirect()->route('home');//view('home'); //redirect()->route('/');
+}
 
         // public function logout()
     // {

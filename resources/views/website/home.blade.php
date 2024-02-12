@@ -7,6 +7,7 @@
     @include('website.partials.cart')
     <!-- login section -->
     @include('website.partials.login')
+    @include('website.partials.logout_modal')
   @php 
   //dd($categories) 
   @endphp

@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[CommonController::class,'index'])->name('home');
 Route::get('/login', [LoginController::class, 'loginForm'])->name('login');
 Route::post('/login-submit', [LoginController::class, 'loginSubmit'])->name('login.submit');
+Route::get('/logout',[LoginController::class,'logout'])->name('logout');
 
 Route::get('/category/{category_url}',[CommonController::class,'productList'])->name('category_url');
 Route::get('/product/{prod_id}',[CommonController::class,'productDetails'])->name('prod_id');
@@ -47,7 +48,6 @@ Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout')
 Route::middleware('admin')->group(function () {
 
 Route::get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
-Route::get('/admin/logout',[AdminController::class,'adminLogout'])->name('admin.logout');
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.view');
 Route::get('/products',[ProductController::class, 'index'])->name('products');

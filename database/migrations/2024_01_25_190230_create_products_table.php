@@ -23,12 +23,10 @@ return new class extends Migration
             $table->string('prod_badge_text')->nullable();
             $table->string('prod_img');
             $table->text('prod_details')->nullable();
-            $table->text('product_description')->nullable();
+            $table->text('prod_description')->nullable();
             $table->integer('prod_status')->default(1);
-            // Add any other fields you need for products
             $table->timestamps();
-
-            // Define foreign key relationship
+            // foreign key relationship
             $table->foreign('prod_category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }

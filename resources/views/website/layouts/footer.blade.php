@@ -115,7 +115,7 @@
   <script src="{{ asset('public/js/cart.js') }}"></script>
   <script src="{{ asset('public/js/checkout.js') }}"></script>
   <script src="{{ asset('public/js/owl.carousel.js') }}"></script>
-  {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"> --}}
+  <script src="{{ asset('public/js/index.js') }}"></script>
   <!-- owl carousel script -->
   <script type="text/javascript">
     $(document).ready(function() {
@@ -138,6 +138,7 @@
   });
   </script>
   <!-- end owl carousel script -->
+  @yield('userjs')
 </body>
 
 </html>

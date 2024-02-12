@@ -94,6 +94,24 @@ body {
   position: relative;
 }
 
+.custom-user-section{
+margin: 10px 30px;
+padding: 0;
+color: #ffffff;
+text-align: center;
+position: relative;
+}
+
+/* .custom_nav-container.navbar-expand-lg .navbar-nav .nav-item .custom-user-section::after {
+  display: none;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #ffffff;
+} */
 .custom_nav-container.navbar-expand-lg .navbar-nav .nav-item .nav-link::after {
   display: none;
   content: "";
@@ -136,7 +154,7 @@ a:focus {
           align-items: center;
 }
 
-.user_option a {
+.user_option a  {
   color: #ffffff;
   margin: 10px 30px;
 }

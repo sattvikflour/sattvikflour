@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('category_url');
             $table->string('category_img');
             $table->enum('avail_status', ['available', 'unavailable','comming_soon']);
+            $table->boolean('badge_status')->default(false);
+            $table->string('badge_text')->nullable();
             $table->timestamps();
         });
     }
