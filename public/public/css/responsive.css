@@ -45,11 +45,11 @@
         margin-top: 25px;
     }
 
-    .slider_section .img-box img{
-        display: inline-block; 
+    .slider_section .img-box img{ 
         transform: none;
         height: 100px;
-        width: auto;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     section.app_section .detail-box {

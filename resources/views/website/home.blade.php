@@ -29,9 +29,9 @@
 </div>
 
   <!-- app section -->
-  @include('website.partials.app_section');
+  @include('website.partials.app_section')
   <!-- end app section -->
 
   <!-- footer section -->
-  @include('website.layouts.footer');
+  @include('website.layouts.footer')
   <!-- footer section -->

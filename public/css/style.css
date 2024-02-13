@@ -226,6 +226,7 @@ a:focus {
 
 .slider_section #carouselExampleIndicators {
   width: 100%;
+  height: 500px
 }
 
 .slider_section .row {
@@ -275,6 +276,7 @@ a:focus {
 
 .slider_section .img-box img {
   width: 100%;
+  height: 250px;
 }
 
 .slider_section #carouselExampleIndicators .carousel-indicators {
@@ -360,6 +362,10 @@ section.app_section .img-box {
 
 section.app_section .img-box img {
   width: 85%;
+  margin-top: 20%;
+  margin-bottom: 20%;
+  height: 150px;
+  vertical-align: middle;
 }
 
 .auto_section {

@@ -42,7 +42,14 @@
 
     section.app_section .img-box {
         transform: none;
-        margin-top: 35px;
+        margin-top: 25px;
+    }
+
+    .slider_section .img-box img{ 
+        transform: none;
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     section.app_section .detail-box {
