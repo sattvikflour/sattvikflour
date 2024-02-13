@@ -76,20 +76,6 @@ class LoginController extends Controller
         return redirect()->route('home');//view('home'); //redirect()->route('/');
 }
 
-        // public function logout()
-    // {
-    //     $authGuard = 'user';
-    //     auth()->guard($authGuard)->logout();
-    //     return redirect()->route('home');
-    // }
-
-    // public function adminLogout()
-    // {
-    //     $authGuard = 'admin';
-    //     auth()->guard($authGuard)->logout();
-    //     return redirect()->route('home');
-    // }
-
       //Below code also work for login
 
     // protected function attemptLogin(Request $request)
