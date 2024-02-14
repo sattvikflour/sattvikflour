@@ -12,7 +12,7 @@ class Product extends Model
     protected $fillable = [
         'prod_category_id', 'prod_name', 'prod_original_price', 'prod_offer_status',
         'prod_offer_price', 'prod_badge_status', 'prod_badge_text', 'prod_img',
-        'prod_details', 'product_description', 'prod_status',
+        'prod_details', 'prod_description', 'prod_status'
         // Add any other fillable fields you need for products
     ];
 
