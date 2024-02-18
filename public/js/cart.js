@@ -1,13 +1,11 @@
 
-      // Example JavaScript code
       $(document).ready(function () {
-        // Dummy data for the cart
         var cartItems = [
             { name: 'Product 1', price: 20.00, quantity: 2 },
             { name: 'Product 2', price: 30.00, quantity: 1 },
         ];
 
-        // Function to update the cart modal content
+        // update cart
         function updateCartModal() {
             var cartItemsHtml = '';
             var totalPrice = 0;
@@ -26,7 +24,7 @@
             $('.total-price').text('Total Price: $' + totalPrice.toFixed(2));
         }
 
-        // Function to remove an item from the cart
+        // Remove an item from the cart
         window.removeItem = function (itemName) {
             cartItems = cartItems.filter(function (item) {
                 return item.name !== itemName;
@@ -35,7 +33,6 @@
             updateCartModal();
         };
 
-        // Triggered when the cart icon is clicked
         $('#cartIcon').on('click', function () {
             updateCartModal();
         });
@@ -44,28 +41,36 @@
    
    $(document).ready(function() {
         $('#cartBtn').on('click', function() {
-            // Gather product information from data attributes
-            var productName = $(this).data('product-name');
-            var productPrice = 200;//$(this).data('product-price');
-            var grindingType = $("input[name='grinding']:checked").val();
-            var packingSize = $("input[name='packing']:checked").val();
+            var productId = $(this).data('product-id');
+            var productType = $("input[name='product-type']:checked").val();
+            var packagingOption = $("input[name='packaging']:checked").val();
             var quantity = $('#quantity').val();
-            console.log("hello");
+            console.log("Added Successfully");
 
-            // Send data to Laravel backend using AJAX
+                    // Create data object with required parameters
+        var data = {
+            productId: productId,
+            quantity: quantity
+        };
+
+        // if type available
+        if (productType) {
+            data.productType = productType;
+        }
+
+        // if packagingOption available
+        if (packagingOption) {
+            data.packagingOption = packagingOption;
+        }
+
+            // AJAX Call
             $.ajax({
                 type: 'POST',
-                url: '/add-to-cart', // Replace with your actual route
+                url: '/add-to-cart',
                 headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                data: {
-                    productName: productName,
-                    productPrice: productPrice,
-                    grindingType: grindingType,
-                    packingSize: packingSize,
-                    quantity: quantity
-                },
+                data: data,
                 success: function(response) {
                     console.log(response);
                 },

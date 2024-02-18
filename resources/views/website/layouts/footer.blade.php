@@ -116,12 +116,25 @@
   <script src="{{ asset('public/js/checkout.js') }}"></script>
   <script src="{{ asset('public/js/owl.carousel.js') }}"></script>
   <script src="{{ asset('public/js/index.js') }}"></script>
-  <!-- owl carousel script -->
-  <script type="text/javascript">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+  {{-- @if (Session::get('status') == 'error') --}}
+  {{-- <script type="text/javascript">      
+      Swal.fire({
+        icon: 'error',
+        text: 'Invalid username or password. Please try again.',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000
+      });
+      </script> --}}
+      {{-- @endif --}}
+      <!-- owl carousel script -->
+      <script type="text/javascript">
     $(document).ready(function() {
-    $(".owl-carousel").owlCarousel({
-      loop: true,
-      margin: 0,
+      $(".owl-carousel").owlCarousel({
+        loop: true,
+        margin: 0,
       navText: [],
       center: true,
       autoplay: true,
@@ -137,8 +150,20 @@
     });
   });
   </script>
+
+  <script>
+      // $('#form').validate({});
+      $(document).on('click', '.toggle-password', function() {
+          $(this).toggleClass("zmdi zmdi-eye-off");
+          var input = $("#password");
+          input.attr('type') === 'password' ? input.attr('type','text') : input.attr('type','password')
+      });
+      setTimeout(() => {
+          $('.alert.alert-success').fadeOut('slow');
+      }, 5000);
+  </script>
   <!-- end owl carousel script -->
-  @yield('userjs')
+@yield('scripts')
 </body>
 
 </html>

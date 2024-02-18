@@ -5,6 +5,6 @@ $(document).ready(function() {
 
     $('#confirmLogout').on('click', function() {
         // Perform logout action
-        window.location.href = 'logout'; // Redirect to logout route
+        window.location.href = '/logout'; // Redirect to logout route
     });
 });

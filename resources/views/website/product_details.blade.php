@@ -2,7 +2,7 @@
   {{-- @php 
   //dd($product) 
  @endphp --}}
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-6">
                 <img src="{{ asset('public/assets/images/' . $product->prod_img) }}" class="img-fluid" alt="{{ $product->prod_name }}">
@@ -14,35 +14,35 @@
                 <div class="grinding-options mt-4">
                   <label for="grinding-options" class="font-weight-bold">Type of Grinding</label>
                   <div class="form-check">
-                      <input type="radio" class="form-check-input" id="fine-grind" name="grinding" value="fine-grind">
+                      <input type="radio" class="form-check-input" id="fine-grind" name="product-type" value="fine-grind">
                       <label class="form-check-label" for="fine-grind">Fine Grind</label>
                   </div>
                   <div class="form-check">
-                      <input type="radio" class="form-check-input" id="normal-grind" name="grinding" value="normal-grind">
+                      <input type="radio" class="form-check-input" id="normal-grind" name="product-type" value="normal-grind">
                       <label class="form-check-label" for="normal-grind">Normal Grind</label>
                   </div>
                   <div class="form-check">
-                      <input type="radio" class="form-check-input" id="coarse-grind" name="grinding" value="coarse-grind">
+                      <input type="radio" class="form-check-input" id="coarse-grind" name="product-type" value="coarse-grind">
                       <label class="form-check-label" for="coarse-grind">Coarse Grind</label>
                   </div>
               </div>
 
-                <div class="packing-options mt-4">
-                    <label for="packing-options" class="font-weight-bold">Available Packing Options</label>
+                <div class="packaging-options mt-4">
+                    <label for="packaging-options" class="font-weight-bold">Available Packaging Options</label>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" id="10kg" name="packing" value="10kg">
+                        <input type="radio" class="form-check-input" id="10kg" name="packaging" value="10">
                         <label class="form-check-label" for="10kg">10 Kg</label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" id="5kg" name="packing" value="5kg">
+                        <input type="radio" class="form-check-input" id="5kg" name="packaging" value="5">
                         <label class="form-check-label" for="5kg">5 Kg</label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" id="2kg" name="packing" value="2kg">
+                        <input type="radio" class="form-check-input" id="2kg" name="packaging" value="2">
                         <label class="form-check-label" for="2kg">2 Kg</label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" id="1kg" name="packing" value="1kg">
+                        <input type="radio" class="form-check-input" id="1kg" name="packaging" value="1">
                         <label class="form-check-label" for="1kg">1 Kg</label>
                     </div>
                 </div>
@@ -53,8 +53,8 @@
                 </div>
 
                 <div class="mt-4">
-                    <button class="btn btn-success btn-rectangle" id="cartBtn" data-product-name="{{ $product->prod_name }}" data-product-price="{{ $product->prod_price }}">Add to Cart</button>
-                    <button class="btn btn-primary btn-rectangle">Buy Now</button>
+                    <button class="btn btn-success btn-rectangle" id="cartBtn" data-product-id="{{$productId}}">Add to Cart</button>
+                    <button class="btn btn-success ml-5 btn-rectangle">Buy Now</button>
                 </div>
             </div>
         </div>

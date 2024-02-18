@@ -40,7 +40,7 @@ $totalAmount = $subtotal + $taxes + $deliveryFee;
         </li>
         @foreach ($cartData as $item)
         <li class="checkout-item">
-          <span class="product-name">{{ $item['productName'] }}<br>({{ $item['grindingType'] }} {{ $item['packingSize'] }})</span>
+          <span class="product-name">{{ $item['productName'] }}<br>({{ ucwords(str_replace('-', ' ', $item['productType'])) }} ; {{ $item['packagingOption'] }}Kg)</span>
           <span>{{ $item['quantity'] }}</span>
           <span>${{ $item['productPrice'] }}</span>
         </li>
@@ -100,9 +100,9 @@ $totalAmount = $subtotal + $taxes + $deliveryFee;
 </div>
 
   <!-- app section -->
-  @include('website.partials.app_section');
+  @include('website.partials.app_section')
   <!-- end app section -->
 
   <!-- footer section -->
-  @include('website.layouts.footer');
+  @include('website.layouts.footer')
   <!-- footer section -->

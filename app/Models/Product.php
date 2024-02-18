@@ -12,11 +12,10 @@ class Product extends Model
     protected $fillable = [
         'prod_category_id', 'prod_name', 'prod_original_price', 'prod_offer_status',
         'prod_offer_price', 'prod_badge_status', 'prod_badge_text', 'prod_img',
-        'prod_details', 'prod_description', 'prod_status'
-        // Add any other fillable fields you need for products
+        'prod_details', 'prod_description', 'packaging_opts_avail','prod_types_avail','prod_status'
     ];
 
-        // Define the relationship with the category
+        // relationship with the category table
         public function category()
         {
             return $this->belongsTo(Category::class, 'prod_category_id');

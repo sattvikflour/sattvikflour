@@ -19,7 +19,7 @@ class LoginController extends Controller
         elseif (Auth::guard('admin')->check()) {
             return redirect()->route('admin.dashboard');
         }
-        return view('website.partials.login');
+        return view('website.login2');
     }
 
     public function loginSubmit(Request $request)

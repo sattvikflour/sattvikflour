@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('prod_img');
             $table->text('prod_details')->nullable();
             $table->text('prod_description')->nullable();
+            $table->boolean('prod_types_avail')->default(false);
+            $table->boolean('packaging_opts_avail')->default(false);
             $table->integer('prod_status')->default(1);
             $table->timestamps();
             // foreign key relationship

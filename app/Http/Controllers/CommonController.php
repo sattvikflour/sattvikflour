@@ -23,7 +23,8 @@ class CommonController extends Controller
 
     public function productDetails(Request $req , $prod_id){
         $product = Product::where("id","=",$prod_id)->first();
-        return view('website.product_details',compact('product'));
+        $productId = $prod_id;
+        return view('website.product_details',compact('product' , 'productId'));
     }
 
     public function checkout(){

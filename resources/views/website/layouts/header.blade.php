@@ -25,6 +25,7 @@
 
   <link rel="stylesheet" type="text/css" href="{{ asset('public/css/index.css') }}"/>
   <link rel="stylesheet" type="text/css" href="{{ asset('public/css/bootstrap.css') }}"/>
+  <link rel="stylesheet" type="text/css" href="{{ asset('public/css/sweetalert2.css') }}"/>
 
   <!-- styles for template -->
   <link href="{{ asset('public/css/style.css') }}" rel="stylesheet" />
@@ -32,7 +33,6 @@
   <link href="{{ asset('public/css/responsive.css') }}"rel="stylesheet" />
   <link href="{{ asset('public/css/cart.css') }}"rel="stylesheet" />
   <link href="{{ asset('public/css/checkout.css') }}"rel="stylesheet" />
-  @yield('usercss')
 </head>
 
 <body>
@@ -114,3 +114,4 @@
         </nav>
       </div>
     </header>
+  </div>
