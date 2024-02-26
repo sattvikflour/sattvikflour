@@ -66,7 +66,7 @@
             // AJAX Call
             $.ajax({
                 type: 'POST',
-                url: '/add-to-cart',
+                url: '/ajax-add-to-cart',
                 headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -13,13 +15,16 @@ class ProductController extends Controller
     {
         // $category_id = 1;
         $categories = Category::all();
+        $products = Product::all();
         // $products = Product::where('display_order',$category_id)->get();
-        return view('admin.products', compact('categories'));
+        // return view('admin.products', compact('categories'));
+        return view('admin.productsOne', compact('categories', 'products'));
     }
 
     public function create()
     {
-        return view('admin.products_create');
+        $categories = Category::all();
+        return view('admin.product_create',compact('categories'));
     }
 
     public function store(Request $request)
@@ -71,4 +76,63 @@ class ProductController extends Controller
         // Redirect to a success page or any other appropriate action
         return redirect()->route('products')->with('success', 'Product added successfully');
     }
+
+
+    public function ajaxGetProducts(Request $request)
+    {
+        $category_id = $request->input('category_id');
+        $filteredRecords = null;
+        if ($category_id == 'all') {
+            $filteredRecords = Product::all();
+        } else {
+            $filteredRecords = Product::where('prod_category_id', $category_id)->get();
+        }
+        $totalRecords = Product::count();
+        $filteredRecordsCount = $filteredRecords->count();
+
+        $data = [];
+        foreach ($filteredRecords as $product) {
+            $nestedData = [
+                'responsive_id' => ' ',
+                'id' => $product->id,
+                'display_order' => $product->display_order,
+                'prod_name' => $product->prod_name,
+                'edit' => route('product.edit', ['id' => $product->id]),
+            ];
+            $data[] = $nestedData;
+        }
+
+        return response()->json([
+            'data' => $data,
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $filteredRecordsCount,
+        ]);
+    }
+
+    public function ajaxUpdateOrder(Request $request)
+    {
+        try {
+            $orderData = $request->input('order_data');
+
+            foreach ($orderData as $item) {
+                $productId = $item['id'];
+                $newOrder = $item['display_order'];
+                DB::beginTransaction(); //See notes to know more about it
+                $product = Product::findOrFail($productId);
+                $product->display_order = $newOrder;
+                $product->save();
+                DB::commit();
+            }
+
+            return response()->json(['status' => 'success', 'message' => 'Display order updated successfully'], 200);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            return response()->json(['status' => 'error', 'message' => 'Database error'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => 'Error occurred'.$e->getMessage()], 500);
+        }
+    }
+
+    
 }

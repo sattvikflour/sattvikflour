@@ -15,7 +15,7 @@
     @foreach($categories as $category)
         <div class="col-md-4 mb-4">
           <div class="card">
-          <a href="{{ route('category_url',['category_url' => $category->category_url]) }}">
+          <a href="{{ route('view.category',['category_url' => $category->category_url]) }}">
                 <img src="{{ asset('public/assets/images/' . $category->category_img)}}" class="card-img-top" alt="{{ $category->category_name }}">
               </a>
                 <div class="card-body">

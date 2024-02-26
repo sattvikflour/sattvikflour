@@ -40,7 +40,14 @@ $totalAmount = $subtotal + $taxes + $deliveryFee;
         </li>
         @foreach ($cartData as $item)
         <li class="checkout-item">
-          <span class="product-name">{{ $item['productName'] }}<br>({{ ucwords(str_replace('-', ' ', $item['productType'])) }} ; {{ $item['packagingOption'] }}Kg)</span>
+          <span class="product-name">{{ $item['productName'] }}<br>
+            @if($item['productType']!=null)
+            {{ ucwords(str_replace('-', ' ', $item['productType'])) }} 
+            @endif
+            @if($item['packagingOption']!=null)
+            {{ $item['packagingOption'] }}Kg
+          @endif
+        </span>
           <span>{{ $item['quantity'] }}</span>
           <span>${{ $item['productPrice'] }}</span>
         </li>

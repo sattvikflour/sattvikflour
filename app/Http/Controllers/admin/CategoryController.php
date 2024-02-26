@@ -29,7 +29,6 @@ class CategoryController extends Controller
             'category_url' => 'required|string|max:255',
             'category_img' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // 5120 KB (5 MB) limit
             'avail_status' => 'required|boolean',
-            // Add validation rules for other fields if needed
         ]);
         //dd($request , $request->hasFile('category_img'));
         if ($request->hasFile('category_img')) {
@@ -52,8 +51,6 @@ class CategoryController extends Controller
         return redirect()->route('categories.view')->with('success', 'Category added successfully!');
     }
 
-
-    // You can add more methods for handling CRUD operations
 
     public function edit($id)
     {

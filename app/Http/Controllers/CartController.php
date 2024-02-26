@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
-    public function addToCart(Request $request)
+    public function ajaxAddToCart(Request $request)
     {
         try {
             // dd($request); //does not work for ajax calls
@@ -17,13 +17,17 @@ class CartController extends Controller
             // $product = Product::where('id', '=', $productId)->first();
             $productName = $product->prod_name;
             $productPrice = $product->prod_offer_status == 1 ? $product->prod_offer_price : $product->prod_original_price;
-            $productType = $request->input('productType');
-            $packagingOption = $request->input('packagingOption');
+            if ($product->prod_types_avail == 1) {
+                $productType = $request->input('productType');
+            }
+            if ($product->packaging_opts_avail == 1) {
+                $packagingOption = $request->input('packagingOption');
+            }
             $quantity = $request->input('quantity');
-            
+
             $cartItems = Session::get('cart');
-            
-            if (!empty($cartItems) && $product->prod_types_avail==1 && $product->packaging_opts_avail==1) {
+
+            if (!empty($cartItems) && $product->prod_types_avail == 1 && $product->packaging_opts_avail == 1) {
                 // Check if the same product with the same type and packaging option exists in the cart
                 $existingProduct = collect($cartItems)->first(function ($item) use ($productId, $productType, $packagingOption) {
                     return ($item['productId'] ?? null) == $productId && ($item['productType'] ?? null) == $productType && ($item['packagingOption'] ?? null) == $packagingOption;
@@ -36,9 +40,9 @@ class CartController extends Controller
                     return response()->json(['status' => 'error', 'message' => 'Product already exists in the cart']);
                 }
             }
-            
+
             //Starts Other Combinations
-            if (!empty($cartItems) && $product->prod_types_avail==0 && $product->packaging_opts_avail==1) {
+            if (!empty($cartItems) && $product->prod_types_avail == 0 && $product->packaging_opts_avail == 1) {
                 $existingProduct = collect($cartItems)->first(function ($item) use ($productId, $packagingOption) {
                     return ($item['productId'] ?? null) == $productId && ($item['packagingOption'] ?? null) == $packagingOption;
                 });
@@ -46,7 +50,7 @@ class CartController extends Controller
                     return response()->json(['status' => 'error', 'message' => 'Product already exists in the cart']);
                 }
             }
-            if (!empty($cartItems) && $product->prod_types_avail==1 && $product->packaging_opts_avail==0) {
+            if (!empty($cartItems) && $product->prod_types_avail == 1 && $product->packaging_opts_avail == 0) {
                 $existingProduct = collect($cartItems)->first(function ($item) use ($productId, $productType) {
                     return ($item['productId'] ?? null) == $productId && ($item['productType'] ?? null) == $productType;
                 });
@@ -55,7 +59,7 @@ class CartController extends Controller
                 }
             }
 
-            if (!empty($cartItems) && $product->prod_types_avail==0 && $product->packaging_opts_avail==0) {
+            if (!empty($cartItems) && $product->prod_types_avail == 0 && $product->packaging_opts_avail == 0) {
                 $existingProduct = collect($cartItems)->first(function ($item) use ($productId) {
                     return ($item['productId'] ?? null) == $productId;
                 });
@@ -66,14 +70,14 @@ class CartController extends Controller
 
             //Ends Other Combinations
 
-            // Store information in session
+            // Create Cart Data to information in session
             $cartData = [
                 'productId' => $productId,
                 'productName' => $productName,
                 'productPrice' => $productPrice,
-                'productType' => $productType,
-                'packagingOption' => $packagingOption,
                 'quantity' => $quantity,
+                'productType' => ($product->prod_types_avail == 1) ? $productType : null,
+                'packagingOption' => ($product->packaging_opts_avail == 1) ? $packagingOption : null,
             ];
 
             // 'cart' is key for cart data in the session
@@ -82,7 +86,7 @@ class CartController extends Controller
             return response()->json(['status' => 'success', 'message' => 'Product added to cart successfully']);
         } catch (\Exception $e) {
             // echo $e->getMessage();
-            return response()->json(['status' => 'error', 'message' => 'Something went wrong'. $e->getMessage()]);
+            return response()->json(['status' => 'error', 'message' => 'Something went wrong' . $e->getMessage()]);
         }
     }
 }

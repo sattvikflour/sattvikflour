@@ -9,7 +9,7 @@
             @if($product->prod_badge_status == 1)
                 <span class="badge badge-primary badge-top-right">{{ $product->prod_badge_text }}</span>
             @endif
-            <a href="{{ route('prod_id', ['prod_id' => $product->id]) }}">
+            <a href="{{ route('view.product', ['prod_id' => $product->id]) }}">
                 <img src="{{ asset('public/assets/images/' . $product->prod_img) }}" class="card-img-top" alt="{{ $product->prod_name }}">
             </a>
             <div class="card-body">

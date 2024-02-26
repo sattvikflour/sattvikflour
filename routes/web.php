@@ -32,14 +32,14 @@ Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login-submit', [LoginController::class, 'loginSubmit'])->name('login.submit');
 Route::get('/logout',[LoginController::class,'logout'])->name('logout');
 
-Route::get('/category/{category_url}',[CommonController::class,'productList'])->name('category_url');
-Route::get('/product/{prod_id}',[CommonController::class,'productDetails'])->name('prod_id');
+Route::get('/category/{category_url}',[CommonController::class,'productList'])->name('view.category');
+Route::get('/product/{prod_id}',[CommonController::class,'productDetails'])->name('view.product');
 
 Route::get('/register', [RegisterController::class, 'registrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('registration-submit');
 
 
-Route::post('/add-to-cart', [CartController::class,'addToCart']);
+Route::post('/ajax-add-to-cart', [CartController::class,'ajaxAddToCart']);
 Route::get('/practice', [PracticeController::class,'viewPractice']);
 
 Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout');
@@ -49,19 +49,24 @@ Route::middleware('admin')->group(function () {
 
 Route::get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
 
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.view');
-Route::get('/products',[ProductController::class, 'index'])->name('products');
+Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories.view');
+Route::get('/admin/products',[ProductController::class, 'index'])->name('admin.products');
+Route::get('/ajax-get-products', [ProductController::class,'ajaxGetProducts'])->name('ajax-get-products');
 
-Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
-Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
 
-Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('category.create');
+Route::post('/admin/category/store', [CategoryController::class, 'store'])->name('category.store');
 
-Route::get('/products/create',[ProductController::class,'create'])->name('product.create');
-Route::post('/product/store',[ProductController::class,'store'])->name('product.store');
+Route::get('/admin/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+Route::put('/admin/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 
-Route::get('/product/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
-Route::post('/product/update/{id}',[ProductController::class,'update'])->name('product.update');
+Route::get('/admin/product/create',[ProductController::class,'create'])->name('product.create');
+Route::post('/admin/product/store',[ProductController::class,'store'])->name('product.store');
+
+// Route::get('/product/view/{id}',[ProductController::class,'view'])->name('product.view');
+Route::get('/admin/product/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
+Route::post('/admin/product/update/{id}',[ProductController::class,'update'])->name('product.update');
+Route::post('/ajax-update-order', [ProductController::class,'ajaxUpdateOrder'])->name('ajax-update-order');
+
 
 });
