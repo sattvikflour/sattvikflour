@@ -24,7 +24,7 @@
                 @endif
                 <div class="d-flex justify-content-between">
                   <button class="btn btn-success btn-rectangle" id="cartBtn">Add to Cart</button>
-                  <button href="{{ route('prod_id', ['prod_id' => $product->id]) }}" class="btn btn-primary btn-rectangle">Order Now</button>
+                  {{-- <button href="{{ route('prod_id', ['prod_id' => $product->id]) }}" class="btn btn-primary btn-rectangle">Order Now</button> --}}
               </div>
             </div>
         </div>
