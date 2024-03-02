@@ -11,9 +11,9 @@ class Product extends Model
 
     protected $fillable = [
         'prod_category_id', 'prod_name', 'prod_original_price', 'prod_offer_status',
-        'prod_offer_price', 'prod_badge_status', 'prod_badge_text', 'prod_img',
-        'prod_details', 'prod_description', 'packaging_opts_avail','prod_types_avail','prod_status',
-        'prod_type_label','packaging_opts_label',
+        'prod_offer_price', 'prod_badge_status', 'prod_badge_text', 'multi_img_avail', 'prod_img',
+        'prod_details', 'prod_description', 'prod_summary', 'packaging_opts_avail','prod_types_avail','prod_status',
+        'prod_type_label','packaging_opts_label', 'prod_specs_avail'
     ];
 
         // relationship with the category table

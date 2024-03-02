@@ -21,13 +21,16 @@ return new class extends Migration
             $table->decimal('prod_offer_price', 8, 2)->nullable();
             $table->boolean('prod_badge_status')->default(false);
             $table->string('prod_badge_text')->nullable();
+            $table->boolean('multi_img_avail')->default(0);
             $table->string('prod_img');
             $table->text('prod_details')->nullable();
             $table->text('prod_description')->nullable();
+            $table->text('prod_summary')->nullable();
             $table->boolean('prod_types_avail')->default(false);
             $table->boolean('packaging_opts_avail')->default(false);
             $table->string('prod_type_label')->nullable();
             $table->string('packaging_opts_label')->nullable();
+            $table->boolean('prod_specs_avail')->default(0);
             $table->integer('prod_status')->default(1);
             $table->timestamps();
             // foreign key relationship

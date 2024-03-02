@@ -10,7 +10,7 @@
     @yield('css')
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-dark bg-dark fixed-top" id="navbar">
         <div class="navbar-brand">
             {{-- <img src="{{ asset('path/to/company/logo.png') }}" alt="Company Logo" width="250">  --}}
             Sattvik Flour
