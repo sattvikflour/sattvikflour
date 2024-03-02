@@ -211,7 +211,7 @@ $('#category-dropdown').on('change', function() {
 </script>
 
 
-
+{{-- //Below also work --}}
 {{-- <script>
 
 $(document).ready(function() {
