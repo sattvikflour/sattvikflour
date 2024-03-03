@@ -18,7 +18,7 @@ class ProductController extends Controller
         $products = Product::all();
         // $products = Product::where('display_order',$category_id)->get();
         // return view('admin.products', compact('categories'));
-        return view('admin.productsOne', compact('categories', 'products'));
+        return view('admin.products', compact('categories', 'products'));
     }
 
     public function create()

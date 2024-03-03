@@ -3,10 +3,7 @@
     <!-- slider section -->
     @include('website.partials.slider')
     <!-- end slider section -->
-    <!-- cart section -->
     @include('website.partials.cart')
-    <!-- login section -->
-    @include('website.partials.login')
     @include('website.partials.logout_modal')
   @php 
   //dd($categories) 
@@ -20,7 +17,7 @@
               </a>
                 <div class="card-body">
                     <h5 class="card-title">{{ $category->category_name }}</h5>
-                    {{-- <p class="card-text">{{ $category->product_price }}</p> --}}
+                    {{-- <p class="card-text">{{ $category->price }}</p> --}}
                     <a href="#" class="btn btn-primary btn-block">Order Now</a>
                 </div>
             </div>

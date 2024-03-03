@@ -10,7 +10,7 @@ class CommonController extends Controller
 {
     public function index(){
         $categories = Category::all();
-        return view('website.home',compact('categories'));
+        return view('website.login',compact('categories'));
     }
 
     public function productList(Request $req , $category_url){

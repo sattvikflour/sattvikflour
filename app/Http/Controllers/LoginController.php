@@ -19,7 +19,7 @@ class LoginController extends Controller
         elseif (Auth::guard('admin')->check()) {
             return redirect()->route('admin.dashboard');
         }
-        return view('website.login2');
+        return view('website.login');
     }
 
     public function loginSubmit(Request $request)
@@ -68,10 +68,10 @@ class LoginController extends Controller
     }
 
     public function logout(Request $request){
-        Auth::logout(); // Log out the user
+        Auth::logout(); 
 
-        $request->session()->invalidate(); // Invalidate the session
-        $request->session()->regenerateToken(); // Regenerate CSRF token
+        $request->session()->invalidate(); 
+        $request->session()->regenerateToken();
 
         return redirect()->route('home');//view('home'); //redirect()->route('/');
 }
