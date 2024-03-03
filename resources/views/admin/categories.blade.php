@@ -2,6 +2,7 @@
 @section('title')Categories - Admin @endsection
 @section('css')
         {{-- <link rel="stylesheet" href="{{ asset('public/css/style.css') }}"> --}}
+        {{-- <link rel="stylesheet" href="{{ asset('public/css/style.css') }}"> --}}
         <link rel="stylesheet" href="{{ asset('public/css/responsive.css') }}">
         <link rel="stylesheet" href="{{ asset('public/css/draggable1.css') }}">
         @endsection
