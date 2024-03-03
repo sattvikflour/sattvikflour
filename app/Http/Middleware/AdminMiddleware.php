@@ -17,8 +17,8 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::guard('admin')->check()) {
-            // User is not authenticated as admin
-            return redirect()->route('home'); // Replace 'home' with the route name you want to redirect to
+            
+            return redirect()->route('home');
         }
         return $next($request);
     }
