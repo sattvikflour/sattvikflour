@@ -85,10 +85,6 @@
   </div>
 </div>
 
-  <!-- app section -->
-  @include('website.partials.app_section');
-  <!-- end app section -->
+  @include('website.partials.app_section')
 
-  <!-- footer section -->
-  @include('website.layouts.footer');
-  <!-- footer section -->
+  @include('website.layouts.footer')

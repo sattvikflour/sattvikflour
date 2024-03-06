@@ -51,22 +51,19 @@ Route::middleware('admin')->group(function () {
 Route::get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
 
 Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories.view');
-Route::get('/admin/products',[ProductController::class, 'index'])->name('admin.products');
-Route::get('/ajax-get-products', [ProductController::class,'ajaxGetProducts'])->name('ajax-get-products');
-
-
 Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('category.create');
 Route::post('/admin/category/store', [CategoryController::class, 'store'])->name('category.store');
-
 Route::get('/admin/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
 Route::put('/admin/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 
+Route::get('/admin/products',[ProductController::class, 'index'])->name('admin.products');
+Route::get('/ajax-get-products', [ProductController::class,'ajaxGetProducts'])->name('ajax-get-products');
 Route::get('/admin/product/create',[ProductController::class,'create'])->name('product.create');
 Route::post('/admin/product/store',[ProductController::class,'store'])->name('product.store');
-
 // Route::get('/product/view/{id}',[ProductController::class,'view'])->name('product.view');
 Route::get('/admin/product/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
 Route::post('/admin/product/update/{id}',[ProductController::class,'update'])->name('product.update');
+
 Route::post('/ajax-update-order', [ProductController::class,'ajaxUpdateOrder'])->name('ajax-update-order');
 
 

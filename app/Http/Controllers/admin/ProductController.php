@@ -24,10 +24,80 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.product_create',compact('categories'));
+        return view('admin.product_create', compact('categories'));
     }
 
     public function store(Request $request)
+    {
+        // dd($request);
+        try {
+
+            $fileName = null;
+            // $validator = Validator::make($request->all(), [
+            $request->validate([
+                'product-category' => 'required|exists:categories,id',
+                'prod-name' => 'required|string',
+                'prod-original-price' => 'required|numeric',
+                'prod-offer-status' => 'required|boolean',
+                'prod-offer-price' => 'nullable|numeric',
+                'prod-badge-status' => 'required|boolean',
+                'prod-badge-text' => 'nullable|string',
+                'multi-img-avail' => 'required|boolean',
+                'prod-img' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
+                'prod-details' => 'required|string',
+                'prod-description' => 'nullable|string',
+                'prod-summary' => 'nullable|string',
+                'prod-types-avail' => 'required|boolean',
+                'prod-type-label' => 'nullable|string',
+                'packaging-opts-avail' => 'required|boolean',
+                'packaging-opts-label' => 'nullable|string',
+                'prod-specs-avail' => 'required|boolean',
+                'prod-status' => 'required|boolean',
+            ]);
+
+            // if ($validator->fails()) {
+            //     return redirect()->back()->withErrors($validator->errors())->withInput();
+            // }
+
+            // dd($request , $request->hasFile('prod-img'));
+            if ($request->hasFile('prod-img')) {
+                date_default_timezone_set('Asia/Kolkata');
+                //dd(date('YmdHis'));
+                $fileName = date('YmdHis') . '.' . $request->file('prod-img')->getClientOriginalExtension();
+                // dd($fileName);
+                $imagePath = $request->file('prod-img')->storeAs('public/assets/images', $fileName,'local');
+                // dd($imagePath);
+            }
+
+            Product::create([
+                'prod_category_id' => $request->input('product-category'),
+                'prod_name' => $request->input('prod-name'),
+                'prod_original_price' => $request->input('prod-original-price'),
+                'prod_offer_status' => $request->has('prod-offer-status'),
+                'prod_offer_price' => $request->input('prod-offer-price'),
+                'prod_badge_status' => $request->has('prod-badge-status'),
+                'prod_badge_text' => $request->input('prod-badge-text'),
+                'multi_img_avail' => $request->input('multi-img-avail'),
+                'prod_img' => $fileName,
+                'prod_details' => $request->input('prod-details'),
+                'product_description' => $request->input('prod-description'),
+                'product_summary' => $request->input('prod-summary'),
+                'prod_types_avail' => $request->input('prod-types-avail'),
+                'prod_type_label' => $request->input('prod-type-label'),
+                'packaging_opts_avail' => $request->input('packaging-opts-avail'),
+                'packaging_opts_label' => $request->input('packaging-opts-label'),
+                'prod_specs_avail' => $request->input('prod-specs-avail'),
+                'prod_status' => $request->has('prod-status') ? 1 : 0,
+            ]);
+
+            return redirect()->route('admin.products')->with(['status' => 'success', 'message'=>'Product added successfully']);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->withErrors([$e->getMessage()]);
+        }
+    }
+
+    public function stores(Request $request)
     {
         //dd($request);
         $fileName = null;
@@ -130,9 +200,7 @@ class ProductController extends Controller
             DB::rollBack();
             return response()->json(['status' => 'error', 'message' => 'Database error'], 500);
         } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => 'Error occurred'.$e->getMessage()], 500);
+            return response()->json(['status' => 'error', 'message' => 'Error occurred' . $e->getMessage()], 500);
         }
     }
-
-    
 }

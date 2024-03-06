@@ -14,9 +14,10 @@
 @section('content')
     <div class="container">
         <form id="product-form" method="POST" action="{{route('product.store')}}" enctype="multipart/form-data" novalidate>
+            @csrf
             <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
                 <label for="category-dropdown">Select Product Category:<br> <br>
-                <select id="category-dropdown" style="height:40px;width:200px">
+                <select id="category-dropdown" name="product-category" style="height:40px;width:200px">
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}" >{{ $category->category_name }}</option>
                     @endforeach
