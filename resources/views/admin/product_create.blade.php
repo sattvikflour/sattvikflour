@@ -22,12 +22,13 @@
 {{-- @dd($product); --}}
 
 @section('content')
-    <div class="container row mt-4 mb-4">
+    <div class="container" >
+        <form id="product-form" method="POST" action="{{route('product.store')}}" enctype="multipart/form-data" novalidate>
+            @csrf
+        <div class="row mt-4 mb-4">
       <div class="col-md-7 col-lg-7">
         <div class="card w-100">
             <div class="card-body">
-        <form id="product-form" method="POST" action="{{route('product.store')}}" enctype="multipart/form-data" novalidate>
-            @csrf
             <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
                 <label for="category-dropdown">Select Product Category:<br> <br>
                 <select id="category-dropdown" name="product-category" style="height:40px;width:200px">
@@ -139,7 +140,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        {{-- </form> --}}
         </div>
         </div>
       </div>
@@ -155,8 +156,7 @@
                 {{-- <button class="btn btn-outline-secondary save-type-btn" type="button">Save</button> --}}
             </div>
         </div>
-        <form id="prodTypeForm">
-            @csrf
+        <div id="prodTypeForm">
             <div class="form-group">
                 <label for="prodType">Product Type</label>
                 <div class="input-group">
@@ -167,7 +167,7 @@
                 </div>
             </div>
             
-        </form>
+        </div>
                 </div>
             </div>
         </div>
@@ -181,8 +181,7 @@
                     {{-- <button class="btn btn-outline-secondary save-option-btn" type="button">Save</button> --}}
                 </div>
             </div>
-            <form id="packagingOptForm">
-                @csrf
+            <div id="packagingOptForm">
                 <div class="form-group">
                     <label for="packagingOption">Packaging Option</label>
                     <div class="input-group">
@@ -193,12 +192,14 @@
                     </div>
                 </div>
                 
-            </form>
+            </div>
                 </div>
             </div>
             </div>
     </div>
     
+</div>
+<form>
 </div>
 
 @endsection

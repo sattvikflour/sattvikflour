@@ -26,7 +26,7 @@
       <div class="col-md-7 col-lg-7">
         <div class="card w-100">
             <div class="card-body">
-        <form id="product-form" method="POST" action="{{route('product.store')}}" enctype="multipart/form-data" novalidate>
+        <form id="product-form" method="POST" action="{{ route('product.update', ['id' => $product->id]) }}" enctype="multipart/form-data" novalidate>
             @csrf
             <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
                 <label for="category-dropdown">Select Product Category:<br> <br>

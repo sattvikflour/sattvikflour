@@ -64,6 +64,7 @@ Route::post('/admin/product/update/{id}',[AdminProductController::class,'update'
 
 Route::get('/ajax-get-products', [AdminProductController::class,'ajaxGetProducts'])->name('ajax-get-products');
 Route::post('/ajax-update-order', [AdminProductController::class,'ajaxUpdateOrder'])->name('ajax-update-order');
+Route::post('/ajax-product-types',[AdminProductController::class,'ajaxProductTypes'])->name('ajax-product-types');
 Route::post('/ajax-packaging-options',[AdminProductController::class,'ajaxPackagingOptions'])->name('ajax-packaging-options');
 
 });
