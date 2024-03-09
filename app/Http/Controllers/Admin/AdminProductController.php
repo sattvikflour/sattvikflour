@@ -41,6 +41,8 @@ class AdminProductController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        // dd(!empty(array_filter($request->productType)),!empty(array_filter($request->packagingOption)));
+
         try {
             DB::beginTransaction();
 
@@ -77,7 +79,7 @@ class AdminProductController extends Controller
                 //dd(date('YmdHis'));
                 $fileName = date('YmdHis') . '.' . $request->file('prod-img')->getClientOriginalExtension();
                 // dd($fileName);
-                $imagePath = $request->file('prod-img')->storeAs('public/assets/images', $fileName,'public');
+                $imagePath = $request->file('prod-img')->storeAs('assets/images', $fileName,'public');
                 // dd($imagePath);
             }
 
@@ -102,24 +104,22 @@ class AdminProductController extends Controller
                 'prod_status' => $request->has('prod-status') ? 1 : 0,
             ]);
 
-            if(!empty($request->productType)){
+            if(!empty(array_filter($request->productType))){
                 foreach($request->productType as $prodType){
                 ProductType::create([
                     'product_id' => $product->id,
                     'product_type' => $prodType,
                     'slug' => 'product_type',
-
                 ]);
             }
             }
 
-            if(!empty($request->packagingOption)){
+            if(!empty(array_filter($request->packagingOption))){
                 foreach($request->packagingOption as $packOption){
                 PackagingOption::create([
                     'product_id' => $product->id,
                     'packaging_option' => $packOption,
                     'slug' => 'packaging_option',
-
                 ]);
             }
             }
@@ -160,14 +160,12 @@ class AdminProductController extends Controller
         if ($request->hasFile('prod-img')) {
 
             // if ($product->prod_img) {
-            //     $result = Storage::delete('public/assets/images/' . $product->prod_img);
+            //     $result = Storage::delete('assets/images/' . $product->prod_img);
             //     // dd($result);
             // }
 
             if ($product->prod_img) {
-                $filePath = public_path('public/assets/images/' . $product->prod_img);
-            
-                // Check if the file exists before attempting to delete it
+                $filePath = public_path('assets/images/' . $product->prod_img);
                 if (File::exists($filePath)) {
                     File::delete($filePath);
                 }
@@ -175,7 +173,7 @@ class AdminProductController extends Controller
 
             date_default_timezone_set('Asia/Kolkata');
             $fileName = date('YmdHis') . '.' . $request->file('prod-img')->getClientOriginalExtension();
-            $imagePath = $request->file('prod-img')->storeAs('public/assets/images', $fileName, 'public');
+            $imagePath = $request->file('prod-img')->storeAs('assets/images', $fileName, 'public');
         }
 
         $product->update([
