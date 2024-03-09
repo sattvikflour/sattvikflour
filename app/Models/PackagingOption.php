@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class PackagingOption extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['product_id','packaging_option','slug'];
+
+    public function product(){
+        return $this->belongsTo(Product::class,'product_id');
+    }
 }

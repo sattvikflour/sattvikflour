@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminPanelController;
+use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommonController;
-use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\RegisterController;
@@ -48,23 +47,23 @@ Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout')
 //Admin Routes
 Route::middleware('admin')->group(function () {
 
-Route::get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+Route::get('/admin/dashboard',[AdminPanelController::class,'index'])->name('admin.dashboard');
 
-Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories.view');
-Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('category.create');
-Route::post('/admin/category/store', [CategoryController::class, 'store'])->name('category.store');
-Route::get('/admin/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-Route::put('/admin/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+Route::get('/admin/categories', [AdminCategoryController::class, 'index'])->name('admin.categories.view');
+Route::get('/admin/category/create', [AdminCategoryController::class, 'create'])->name('category.create');
+Route::post('/admin/category/store', [AdminCategoryController::class, 'store'])->name('category.store');
+Route::get('/admin/category/edit/{id}', [AdminCategoryController::class, 'edit'])->name('category.edit');
+Route::put('/admin/category/update/{id}', [AdminCategoryController::class, 'update'])->name('category.update');
 
-Route::get('/admin/products',[ProductController::class, 'index'])->name('admin.products');
-Route::get('/ajax-get-products', [ProductController::class,'ajaxGetProducts'])->name('ajax-get-products');
-Route::get('/admin/product/create',[ProductController::class,'create'])->name('product.create');
-Route::post('/admin/product/store',[ProductController::class,'store'])->name('product.store');
-// Route::get('/product/view/{id}',[ProductController::class,'view'])->name('product.view');
-Route::get('/admin/product/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
-Route::post('/admin/product/update/{id}',[ProductController::class,'update'])->name('product.update');
+Route::get('/admin/products',[AdminProductController::class, 'index'])->name('admin.products');
+Route::get('/admin/product/create',[AdminProductController::class,'create'])->name('product.create');
+Route::post('/admin/product/store',[AdminProductController::class,'store'])->name('product.store');
+// Route::get('/product/view/{id}',[AdminProductController::class,'view'])->name('product.view');
+Route::get('/admin/product/edit/{id}',[AdminProductController::class,'edit'])->name('product.edit');
+Route::post('/admin/product/update/{id}',[AdminProductController::class,'update'])->name('product.update');
 
-Route::post('/ajax-update-order', [ProductController::class,'ajaxUpdateOrder'])->name('ajax-update-order');
-
+Route::get('/ajax-get-products', [AdminProductController::class,'ajaxGetProducts'])->name('ajax-get-products');
+Route::post('/ajax-update-order', [AdminProductController::class,'ajaxUpdateOrder'])->name('ajax-update-order');
+Route::post('/ajax-packaging-options',[AdminProductController::class,'ajaxPackagingOptions'])->name('ajax-packaging-options');
 
 });

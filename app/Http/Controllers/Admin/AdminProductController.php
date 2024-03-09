@@ -9,7 +9,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ProductController extends Controller
+class AdminProductController extends Controller
 {
     public function index()
     {
@@ -202,5 +202,17 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => 'Error occurred' . $e->getMessage()], 500);
         }
+    }
+
+    public function edit($id){
+        // dd($id);
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        return view('admin.product_edit',compact('product','categories'));
+    }
+
+    public function ajaxPackagingOptions(){
+        dd('hello');
+        return response()->json(['status'=>'success','message'=>'Packaging options saved successfully']);
     }
 }

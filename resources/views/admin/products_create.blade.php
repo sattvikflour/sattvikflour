@@ -1,31 +1,18 @@
 @extends('admin.layouts.layout')
 @section('css')
 <style>
-    #prod-offer-price-container,
-    #prod-badge-text-container,
-    #prod-type-label-container,
-    #packaging-opts-label-container {
-        display: none;
-    }
-
-.form-group .input-group .btn {
-    margin-right: 15px;
+    /*hide element intially*/
+#prod-offer-price-container,
+#prod-badge-text-container,
+#prod-type-label-container,
+#packaging-opts-label-container {
+    display: none;
 }
-
-.card {
-        min-height: 400px;
-        min-width: ;
-    }
 </style>
 @endsection
 
-{{-- @dd($product); --}}
-
 @section('content')
-    <div class="container row mt-4 mb-4">
-      <div class="col-md-7 col-lg-7">
-        <div class="card w-100">
-            <div class="card-body">
+    <div class="container">
         <form id="product-form" method="POST" action="{{route('product.store')}}" enctype="multipart/form-data" novalidate>
             @csrf
             <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
@@ -39,12 +26,12 @@
             </div>
             <div class="form-group">
                 <label for="prod-name">Product Name:</label>
-                <input type="text" class="form-control" id="prod-name" name="prod-name" value ="{{$product->prod_name}}" required>
+                <input type="text" class="form-control" id="prod-name" name="prod-name" required>
                 <small id="prod-name-error" class="text-danger" style="display: none;">This field is required</small>
             </div>
             <div class="form-group">
                 <label for="prod-original-price">Original Price:</label>
-                <input type="number" class="form-control" id="prod-original-price" name="prod-original-price" value ="{{$product->prod_original_price}}" step="0.01" required>
+                <input type="number" class="form-control" id="prod-original-price" name="prod-original-price" step="0.01" required>
                 <small id="prod-original-price-error" class="text-danger" style="display: none;">This field is required</small>
 
             </div>
@@ -57,7 +44,7 @@
             </div>
             <div class="form-group" id="prod-offer-price-container">
                 <label for="prod-offer-price">Offer Price:</label>
-                <input type="number" class="form-control" id="prod-offer-price" name="prod-offer-price" value ="{{$product->prod_offer_price}}" step="0.01">
+                <input type="number" class="form-control" id="prod-offer-price" name="prod-offer-price" step="0.01">
                 <small id="prod-offer-price-error" class="text-danger" style="display: none;">This field is required</small>
             </div>
             <div class="form-group">
@@ -140,84 +127,15 @@
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        </div>
-        </div>
-      </div>
-       {{-- <div class="col-md-5">
-        <h3>Product Packaging Options</h3>
-        <form id="packagingForm">
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary add-option-btn" type="button">Add</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-       </div> --}}
-
-       <div class="col-md-5 col-lg-5">
-        <div class="row mb-4">
-            <div class="card w-100">
-                <div class="card-body">
-        <h3>Product Type</h3>
-        <div class="form-group">
-            <div class="input-group">
-                <button class="btn btn-outline-secondary add-type-btn" type="button">Add</button>
-                <button class="btn btn-outline-secondary save-type-btn" type="button">Save</button>
-            </div>
-        </div>
-        <form id="prodTypeForm">
-            @csrf
-            <div class="form-group">
-                <label for="prodType">Packaging Option</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="prodType" name="productType[]">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary remove-type-btn" type="button">Remove</button>
-                    </div>
-                </div>
-            </div>
-            
-        </form>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="card w-100">
-                <div class="card-body">
-            <h3>Product Packaging Options</h3>
-            <div class="form-group">
-                <div class="input-group">
-                    <button class="btn btn-outline-secondary add-option-btn" type="button">Add</button>
-                    <button class="btn btn-outline-secondary save-option-btn" type="button">Save</button>
-                </div>
-            </div>
-            <form id="packagingOptForm">
-                @csrf
-                <div class="form-group">
-                    <label for="packagingOption">Packaging Option</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="packagingOption" name="packagingOption[]">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary remove-option-btn" type="button">Remove</button>
-                        </div>
-                    </div>
-                </div>
-                
-            </form>
-                </div>
-            </div>
-            </div>
     </div>
-    
-</div>
 
 @endsection
 
 @section('javascript')
     
 <script>
+
+    //Display and Hide according to choice
 
 $(document).ready(function(){
     $('#prod-offer-status').change(function() {
@@ -231,7 +149,7 @@ $(document).ready(function(){
         }
     });
 
-    // prod-badge-status dropdown
+    // Display and Hide according to choice for prod-badge-status dropdown
 $('#prod-badge-status').change(function() {
     var badgeStatus = $(this).val();
     if (badgeStatus === '1') {
@@ -243,6 +161,7 @@ $('#prod-badge-status').change(function() {
     }
 });
 
+// Display and Hide according to choice for prod-types-avail dropdown
 $('#prod-types-avail').change(function() {
     var typesAvail = $(this).val();
     if (typesAvail === '1') {
@@ -254,6 +173,7 @@ $('#prod-types-avail').change(function() {
     }
 });
 
+// Display and Hide according to choice for packaging-opts-avail dropdown
 $('#packaging-opts-avail').change(function() {
     var packagingOpts = $(this).val();
     if (packagingOpts === '1') {
@@ -268,25 +188,25 @@ $('#packaging-opts-avail').change(function() {
 
 $(document).ready(function() {
     $('#product-form').submit(function(event) {
-        var isValid = true; 
+        var isValid = true; // Initialize isValid variable
 
         $('.form-control').each(function() {
             if ($(this).prop('required') && !$(this).val()) {
                 isValid = false;
                 var errorId = $(this).attr('id') + '-error';
-                $('#' + errorId).show(); 
+                $('#' + errorId).show(); // Show error message
             } else {
                 var errorId = $(this).attr('id') + '-error';
-                $('#' + errorId).hide(); 
+                $('#' + errorId).hide(); // Hide error message if input is not empty
             }
         });
-          //auto focus scroll
+
         if (!isValid) {
             var firstError = document.querySelector('.text-danger');
-            var navbarHeight = $('#navbar').outerHeight() + 55; 
+            var navbarHeight = $('#navbar').outerHeight() + 35; // Adjusted navbar height with 5px added
 
             if (firstError) {
-                event.preventDefault(); 
+                event.preventDefault(); // Prevent form submission
                 var errorPosition = firstError.getBoundingClientRect().top + window.scrollY;
                 window.scrollTo({
                     top: errorPosition - navbarHeight,
@@ -302,106 +222,6 @@ $(document).ready(function() {
     });
 });
 
-</script>
-
-<script>
-    $(document).ready(function() {
-
-        //Product Type JS
-
-        $(".add-type-btn").click(function() {
-            var productTypeHtml = `
-                <div class="form-group">
-                    <label for="prodType">Packaging Option</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="prodType" name="productType[]">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary remove-type-btn" type="button">Remove</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            $("#prodTypeForm").append(productTypeHtml);
-        });
-
-        $(document).on("click", ".remove-type-btn", function() {
-            $(this).closest(".form-group").remove();
-        });
-
-        $("#prodTypeForm").submit(function(e) {
-            e.preventDefault();
-        });
-
-        $(".save-type-btn").click(function() {
-            
-            var productId = "{{ $product->id }}";
-            var formData = $("#prodTypeForm").serialize();
-            formData += "&product_id=" + productId;
-            $.ajax({
-                type: "POST",
-                url: "{{ route('ajax-packaging-options') }}",
-                // headers: {
-                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                //     'Authorization': 'Bearer ' + '',
-                // },
-                data: formData,
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-
-        //Packaging Options JS
-
-
-        $(".add-option-btn").click(function() {
-            var packagingOptionHtml = `
-                <div class="form-group">
-                    <label for="packagingOption">Packaging Option</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="packagingOption" name="packagingOption[]">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary remove-option-btn" type="button">Remove</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            $("#packagingOptForm").append(packagingOptionHtml);
-        });
-
-        $(document).on("click", ".remove-option-btn", function() {
-            $(this).closest(".form-group").remove();
-        });
-
-        $("#packagingOptForm").submit(function(e) {
-            e.preventDefault();
-        });
-
-        $(".save-option-btn").click(function() {
-            
-            var productId = "{{ $product->id }}";
-            var formData = $("#packagingOptForm").serialize();
-            formData += "&product_id=" + productId;
-            $.ajax({
-                type: "POST",
-                url: "{{ route('ajax-packaging-options') }}",
-                // headers: {
-                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                //     'Authorization': 'Bearer ' + '',
-                // },
-                data: formData,
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-    });
 </script>
 
 @endsection
