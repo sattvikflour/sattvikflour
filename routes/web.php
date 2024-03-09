@@ -61,6 +61,7 @@ Route::post('/admin/product/store',[AdminProductController::class,'store'])->nam
 // Route::get('/product/view/{id}',[AdminProductController::class,'view'])->name('product.view');
 Route::get('/admin/product/edit/{id}',[AdminProductController::class,'edit'])->name('product.edit');
 Route::post('/admin/product/update/{id}',[AdminProductController::class,'update'])->name('product.update');
+Route::get('/admin/product/delete/{id}',[AdminProductController::class,'delete'])->name('product.delete');
 
 Route::get('/ajax-get-products', [AdminProductController::class,'ajaxGetProducts'])->name('ajax-get-products');
 Route::post('/ajax-update-order', [AdminProductController::class,'ajaxUpdateOrder'])->name('ajax-update-order');

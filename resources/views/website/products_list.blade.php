@@ -10,7 +10,7 @@
                 <span class="badge badge-primary badge-top-right">{{ $product->prod_badge_text }}</span>
             @endif
             <a href="{{ route('view.product', ['prod_id' => $product->id]) }}">
-                <img src="{{ asset('public/assets/images/' . $product->prod_img) }}" class="card-img-top" alt="{{ $product->prod_name }}">
+                <img src="{{ asset('public/assets/images/product/' . $product->prod_img) }}" class="card-img-top" alt="{{ $product->prod_name }}">
             </a>
             <div class="card-body">
                 <h5 class="card-title">{{ $product->prod_name }}</h5>

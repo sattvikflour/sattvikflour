@@ -137,7 +137,7 @@
             render: function(data, type, full) {
                 let actions = '';
                 actions += `<a href="${full['edit']}" class="btn btn-sm btn-info m-1" title="Edit Product"> Edit </a>`;
-                actions += `<button class="action-delete btn btn-sm btn-danger m-1" data-id=${full['id']}>Delete</button>`;
+                actions += `<a href="${full['delete']}" class="action-delete btn btn-sm btn-danger m-1" data-id=${full['id']}>Delete</a>`;
                 actions += `<span class="drag-handle">&#9776;</span>`;
                 return actions;
             }

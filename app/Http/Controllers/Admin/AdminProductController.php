@@ -79,7 +79,7 @@ class AdminProductController extends Controller
                 //dd(date('YmdHis'));
                 $fileName = date('YmdHis') . '.' . $request->file('prod-img')->getClientOriginalExtension();
                 // dd($fileName);
-                $imagePath = $request->file('prod-img')->storeAs('assets/images', $fileName,'public');
+                $imagePath = $request->file('prod-img')->storeAs('assets/images/product', $fileName,'public');
                 // dd($imagePath);
             }
 
@@ -165,7 +165,7 @@ class AdminProductController extends Controller
             // }
 
             if ($product->prod_img) {
-                $filePath = public_path('assets/images/' . $product->prod_img);
+                $filePath = public_path('assets/images/product/' . $product->prod_img);
                 if (File::exists($filePath)) {
                     File::delete($filePath);
                 }
@@ -173,7 +173,7 @@ class AdminProductController extends Controller
 
             date_default_timezone_set('Asia/Kolkata');
             $fileName = date('YmdHis') . '.' . $request->file('prod-img')->getClientOriginalExtension();
-            $imagePath = $request->file('prod-img')->storeAs('assets/images', $fileName, 'public');
+            $imagePath = $request->file('prod-img')->storeAs('assets/images/product', $fileName, 'public');
         }
 
         $product->update([
@@ -228,6 +228,7 @@ class AdminProductController extends Controller
                 'display_order' => $product->display_order,
                 'prod_name' => $product->prod_name,
                 'edit' => route('product.edit', ['id' => $product->id]),
+                'delete' => route('product.delete',['id' => $product->id]),
             ];
             $data[] = $nestedData;
         }
@@ -272,6 +273,20 @@ class AdminProductController extends Controller
     public function ajaxPackagingOptions(){
         dd('Packaging Options Ajax');
         return response()->json(['status'=>'success','message'=>'Packaging options saved successfully']);
+    }
+
+    public function delete($id)
+    {
+        try {
+
+            $product = Product::findOrFail($id);
+
+            $product->delete();
+
+            return redirect()->route('admin.products')->with(['status' => 'success', 'message' => 'Product deleted successfully']);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors([$e->getMessage()]);
+        }
     }
 
 
