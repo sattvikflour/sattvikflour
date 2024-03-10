@@ -5,8 +5,8 @@
 <!-- cart section -->
 @include('website.partials.cart')
 @include('website.partials.logout_modal')
-@php 
-//dd($categories) 
+@php
+    //dd($categories)
 @endphp
 <div class="col-lg-5 offset-lg-2 border-double border-4 border-primary p-4">
     <div class="box-rounded bg-white p-4">
@@ -33,8 +33,8 @@
 
             <div class="mb-3">
                 <div class="input-group-merge form-password-toggle">
-                    <input type="password" name="password" id="password" class="form-control"
-                        placeholder="Password" required minlength="8">
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                        required minlength="8">
                     {{-- <span toggle="#password-field" class="zmdi zmdi-eye toggle-password"></span> --}}
                 </div>
                 <label id="password-error" class="error" for="password"></label>
@@ -45,8 +45,8 @@
                     <input type="checkbox" name="rememberme" id="rememberme" class="form-check-input">
                     <label class="form-check-label" for="rememberme">Remember Me</label>
                 </div>
-                <a href="{{ URL::to('forgot-password') }}"
-                    class="text-decoration-none d-block mt-2">Forgot Password?</a>
+                <a href="{{ URL::to('forgot-password') }}" class="text-decoration-none d-block mt-2">Forgot
+                    Password?</a>
             </div>
 
             <div class="mb-3">
@@ -57,10 +57,7 @@
 </div>
 
 
-  <!-- app section -->
-  @include('website.partials.app_section')
-  <!-- end app section -->
-  @include('website.layouts.footer')
-
-
-
+<!-- app section -->
+@include('website.partials.app_section')
+<!-- end app section -->
+@include('website.layouts.footer')

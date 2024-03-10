@@ -13,10 +13,11 @@
                 </div>
                 <div class="modal-footer">
                     <p class="total-price">Total Price: $0.00</p>
-                    <button type="button" class="btn btn-primary" id="checkoutBtn" onclick="location.href='/checkout'">Checkout</button>
+                    <button type="button" class="btn btn-primary" id="checkoutBtn"
+                        onclick="location.href='/checkout'">Checkout</button>
                 </div>
             </div>
         </div>
-      </div>
+    </div>
 
 </section>

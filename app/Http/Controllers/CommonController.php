@@ -8,27 +8,31 @@ use Illuminate\Http\Request;
 
 class CommonController extends Controller
 {
-    public function index(){
-        $categories = Category::all();
-        return view('website.home',compact('categories'));
+    public function index()
+    {
+        $categories = Category::orderBy('display_order', 'asc')->get();
+        return view('website.home', compact('categories'));
     }
 
-    public function productList(Request $req , $category_url){
+    public function productList(Request $req, $category_url)
+    {
 
-        $category_id = Category::where("category_url","=",$category_url)->value("id");
+        $category_id = Category::where("category_url", "=", $category_url)->value("id");
         //dd($category_url,$category_id);
-        $products = Product::where("prod_category_id","=",$category_id)->get();
-        return view('website.products_list',compact('products'));
+        $products = Product::where("prod_category_id", "=", $category_id)->orderBy('display_order', 'asc')->get();
+        return view('website.products_list', compact('products'));
     }
 
-    public function productDetails(Request $req , $prod_id){
-        $product = Product::where("id","=",$prod_id)->first();
+    public function productDetails(Request $req, $prod_id)
+    {
+        $product = Product::where("id", "=", $prod_id)->first();
         $productId = $prod_id;
-        return view('website.product_details',compact('product' , 'productId'));
+        return view('website.product_details', compact('product', 'productId'));
     }
 
-    public function checkout(){
-        $product = Product::where("id","=",1)->first();
-        return view('website.checkout' , compact('product'));
+    public function checkout()
+    {
+        $product = Product::where("id", "=", 1)->first();
+        return view('website.checkout', compact('product'));
     }
 }

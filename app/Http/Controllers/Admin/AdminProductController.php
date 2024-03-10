@@ -19,9 +19,8 @@ class AdminProductController extends Controller
     {
         // $category_id = 1;
         $categories = Category::all();
-        $products = Product::all();
-        // $products = Product::where('display_order',$category_id)->get();
-        // return view('admin.products', compact('categories'));
+        // $products = Product::all();
+        $products = Product::orderBy('display_order', 'asc')->get();
         return view('admin.products', compact('categories', 'products'));
     }
 
@@ -31,11 +30,12 @@ class AdminProductController extends Controller
         return view('admin.product_create', compact('categories'));
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         // dd($id);
         $product = Product::findOrFail($id);
         $categories = Category::all();
-        return view('admin.product_edit',compact('product','categories'));
+        return view('admin.product_edit', compact('product', 'categories'));
     }
 
     public function store(Request $request)
@@ -79,11 +79,11 @@ class AdminProductController extends Controller
                 //dd(date('YmdHis'));
                 $fileName = date('YmdHis') . '.' . $request->file('prod-img')->getClientOriginalExtension();
                 // dd($fileName);
-                $imagePath = $request->file('prod-img')->storeAs('assets/images/product', $fileName,'public');
+                $imagePath = $request->file('prod-img')->storeAs('assets/images/product', $fileName, 'public');
                 // dd($imagePath);
             }
 
-           $product = Product::create([
+            $product = Product::create([
                 'prod_category_id' => $request->input('product-category'),
                 'prod_name' => $request->input('prod-name'),
                 'prod_original_price' => $request->input('prod-original-price'),
@@ -104,28 +104,28 @@ class AdminProductController extends Controller
                 'prod_status' => $request->has('prod-status') ? 1 : 0,
             ]);
 
-            if(!empty(array_filter($request->productType))){
-                foreach($request->productType as $prodType){
-                ProductType::create([
-                    'product_id' => $product->id,
-                    'product_type' => $prodType,
-                    'slug' => 'product_type',
-                ]);
-            }
+            if (!empty(array_filter($request->productType))) {
+                foreach ($request->productType as $prodType) {
+                    ProductType::create([
+                        'product_id' => $product->id,
+                        'product_type' => $prodType,
+                        'slug' => 'product_type',
+                    ]);
+                }
             }
 
-            if(!empty(array_filter($request->packagingOption))){
-                foreach($request->packagingOption as $packOption){
-                PackagingOption::create([
-                    'product_id' => $product->id,
-                    'packaging_option' => $packOption,
-                    'slug' => 'packaging_option',
-                ]);
-            }
+            if (!empty(array_filter($request->packagingOption))) {
+                foreach ($request->packagingOption as $packOption) {
+                    PackagingOption::create([
+                        'product_id' => $product->id,
+                        'packaging_option' => $packOption,
+                        'slug' => 'packaging_option',
+                    ]);
+                }
             }
             DB::commit();
 
-            return redirect()->route('admin.products')->with(['status' => 'success', 'message'=>'Product added successfully']);
+            return redirect()->route('admin.products')->with(['status' => 'success', 'message' => 'Product added successfully']);
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e->getMessage());
@@ -134,78 +134,78 @@ class AdminProductController extends Controller
     }
 
     public function update(Request $request, $id)
-{
-    try {
-        DB::beginTransaction();
+    {
+        try {
+            DB::beginTransaction();
 
-        $product = Product::findOrFail($id);
+            $product = Product::findOrFail($id);
 
-        $fileName = $product->prod_img;
+            $fileName = $product->prod_img;
 
-        $request->validate([
-            'product-category' => 'required|exists:categories,id',
-            'prod-name' => 'required|string',
-            'prod-original-price' => 'required|numeric',
-            'prod-offer-status' => 'required|boolean',
-            'prod-badge-status' => 'required|boolean',
-            'multi-img-avail' => 'required|boolean',
-            'prod-img' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
-            'prod-details' => 'required|string',
-            'prod-types-avail' => 'required|boolean',
-            'packaging-opts-avail' => 'required|boolean',
-            'prod-specs-avail' => 'required|boolean',
-            'prod-status' => 'required|boolean',
-        ]);
+            $request->validate([
+                'product-category' => 'required|exists:categories,id',
+                'prod-name' => 'required|string',
+                'prod-original-price' => 'required|numeric',
+                'prod-offer-status' => 'required|boolean',
+                'prod-badge-status' => 'required|boolean',
+                'multi-img-avail' => 'required|boolean',
+                'prod-img' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
+                'prod-details' => 'required|string',
+                'prod-types-avail' => 'required|boolean',
+                'packaging-opts-avail' => 'required|boolean',
+                'prod-specs-avail' => 'required|boolean',
+                'prod-status' => 'required|boolean',
+            ]);
 
-        if ($request->hasFile('prod-img')) {
+            if ($request->hasFile('prod-img')) {
 
-            // if ($product->prod_img) {
-            //     $result = Storage::delete('assets/images/' . $product->prod_img);
-            //     // dd($result);
-            // }
+                // if ($product->prod_img) {
+                //     $result = Storage::delete('assets/images/' . $product->prod_img);
+                //     // dd($result);
+                // }
 
-            if ($product->prod_img) {
-                $filePath = public_path('assets/images/product/' . $product->prod_img);
-                if (File::exists($filePath)) {
-                    File::delete($filePath);
+                if ($product->prod_img) {
+                    $filePath = public_path('assets/images/product/' . $product->prod_img);
+                    if (File::exists($filePath)) {
+                        File::delete($filePath);
+                    }
                 }
+
+                date_default_timezone_set('Asia/Kolkata');
+                $fileName = date('YmdHis') . '.' . $request->file('prod-img')->getClientOriginalExtension();
+                $imagePath = $request->file('prod-img')->storeAs('assets/images/product', $fileName, 'public');
             }
 
-            date_default_timezone_set('Asia/Kolkata');
-            $fileName = date('YmdHis') . '.' . $request->file('prod-img')->getClientOriginalExtension();
-            $imagePath = $request->file('prod-img')->storeAs('assets/images/product', $fileName, 'public');
+            $product->update([
+                'prod_category_id' => $request->input('product-category'),
+                'prod_name' => $request->input('prod-name'),
+                'prod_original_price' => $request->input('prod-original-price'),
+                'prod_offer_status' => $request->has('prod-offer-status'),
+                'prod_offer_price' => $request->input('prod-offer-price'),
+                'prod_badge_status' => $request->has('prod-badge-status'),
+                'prod_badge_text' => $request->input('prod-badge-text'),
+                'multi_img_avail' => $request->input('multi-img-avail'),
+                'prod_img' => $fileName,
+                'prod_details' => $request->input('prod-details'),
+                'product_description' => $request->input('prod-description'),
+                'product_summary' => $request->input('prod-summary'),
+                'prod_types_avail' => $request->input('prod-types-avail'),
+                'prod_type_label' => $request->input('prod-type-label'),
+                'packaging_opts_avail' => $request->input('packaging-opts-avail'),
+                'packaging_opts_label' => $request->input('packaging-opts-label'),
+                'prod_specs_avail' => $request->input('prod-specs-avail'),
+                'prod_status' => $request->has('prod-status') ? 1 : 0,
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('admin.products')->with(['status' => 'success', 'message' => 'Product updated successfully']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
+            return redirect()->back()->withErrors([$e->getMessage()]);
         }
-
-        $product->update([
-            'prod_category_id' => $request->input('product-category'),
-            'prod_name' => $request->input('prod-name'),
-            'prod_original_price' => $request->input('prod-original-price'),
-            'prod_offer_status' => $request->has('prod-offer-status'),
-            'prod_offer_price' => $request->input('prod-offer-price'),
-            'prod_badge_status' => $request->has('prod-badge-status'),
-            'prod_badge_text' => $request->input('prod-badge-text'),
-            'multi_img_avail' => $request->input('multi-img-avail'),
-            'prod_img' => $fileName,
-            'prod_details' => $request->input('prod-details'),
-            'product_description' => $request->input('prod-description'),
-            'product_summary' => $request->input('prod-summary'),
-            'prod_types_avail' => $request->input('prod-types-avail'),
-            'prod_type_label' => $request->input('prod-type-label'),
-            'packaging_opts_avail' => $request->input('packaging-opts-avail'),
-            'packaging_opts_label' => $request->input('packaging-opts-label'),
-            'prod_specs_avail' => $request->input('prod-specs-avail'),
-            'prod_status' => $request->has('prod-status') ? 1 : 0,
-        ]);
-
-        DB::commit();
-
-        return redirect()->route('admin.products')->with(['status' => 'success', 'message' => 'Product updated successfully']);
-    } catch (\Exception $e) {
-        DB::rollBack();
-        dd($e->getMessage());
-        return redirect()->back()->withErrors([$e->getMessage()]);
     }
-}
 
 
     public function ajaxGetProducts(Request $request)
@@ -215,7 +215,7 @@ class AdminProductController extends Controller
         if ($category_id == 'all') {
             $filteredRecords = Product::all();
         } else {
-            $filteredRecords = Product::where('prod_category_id', $category_id)->get();
+            $filteredRecords = Product::where('prod_category_id', $category_id)->orderBy('display_order','asc')->get();
         }
         $totalRecords = Product::count();
         $filteredRecordsCount = $filteredRecords->count();
@@ -228,7 +228,7 @@ class AdminProductController extends Controller
                 'display_order' => $product->display_order,
                 'prod_name' => $product->prod_name,
                 'edit' => route('product.edit', ['id' => $product->id]),
-                'delete' => route('product.delete',['id' => $product->id]),
+                'delete' => route('product.delete', ['id' => $product->id]),
             ];
             $data[] = $nestedData;
         }
@@ -265,14 +265,16 @@ class AdminProductController extends Controller
         }
     }
 
-    public function ajaxProductTypes(){
+    public function ajaxProductTypes()
+    {
         dd('Product Types Ajax');
-        return response()->json(['status'=>'success','message'=>'Product types saved successfully']);
+        return response()->json(['status' => 'success', 'message' => 'Product types saved successfully']);
     }
 
-    public function ajaxPackagingOptions(){
+    public function ajaxPackagingOptions()
+    {
         dd('Packaging Options Ajax');
-        return response()->json(['status'=>'success','message'=>'Packaging options saved successfully']);
+        return response()->json(['status' => 'success', 'message' => 'Packaging options saved successfully']);
     }
 
     public function delete($id)

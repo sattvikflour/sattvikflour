@@ -26,46 +26,45 @@ use Illuminate\Support\Facades\Route;
 //     return view('website.home');
 // });
 
-Route::get('/',[CommonController::class,'index'])->name('home');
+Route::get('/', [CommonController::class, 'index'])->name('home');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login-submit', [LoginController::class, 'loginSubmit'])->name('login.submit');
-Route::get('/logout',[LoginController::class,'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/category/{category_url}',[CommonController::class,'productList'])->name('view.category');
-Route::get('/product/{prod_id}',[CommonController::class,'productDetails'])->name('view.product');
+Route::get('/category/{category_url}', [CommonController::class, 'productList'])->name('view.category');
+Route::get('/product/{prod_id}', [CommonController::class, 'productDetails'])->name('view.product');
 
 Route::get('/register', [RegisterController::class, 'registrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('registration-submit');
 
 
-Route::post('/ajax-add-to-cart', [CartController::class,'ajaxAddToCart']);
-Route::get('/practice', [PracticeController::class,'viewPractice']);
+Route::post('/ajax-add-to-cart', [CartController::class, 'ajaxAddToCart']);
+Route::get('/practice', [PracticeController::class, 'viewPractice']);
 
-Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout');
+Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 
 //Admin Routes
 Route::middleware('admin')->group(function () {
 
-Route::get('/admin/dashboard',[AdminPanelController::class,'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminPanelController::class, 'index'])->name('admin.dashboard');
 
-Route::get('/admin/categories', [AdminCategoryController::class, 'index'])->name('admin.categories.view');
-Route::get('/admin/category/create', [AdminCategoryController::class, 'create'])->name('category.create');
-Route::post('/admin/category/store', [AdminCategoryController::class, 'store'])->name('category.store');
-Route::get('/admin/category/edit/{id}', [AdminCategoryController::class, 'edit'])->name('category.edit');
-Route::put('/admin/category/update/{id}', [AdminCategoryController::class, 'update'])->name('category.update');
+    Route::get('/admin/categories', [AdminCategoryController::class, 'index'])->name('admin.categories.view');
+    Route::get('/admin/category/create', [AdminCategoryController::class, 'create'])->name('category.create');
+    Route::post('/admin/category/store', [AdminCategoryController::class, 'store'])->name('category.store');
+    Route::get('/admin/category/edit/{id}', [AdminCategoryController::class, 'edit'])->name('category.edit');
+    Route::put('/admin/category/update/{id}', [AdminCategoryController::class, 'update'])->name('category.update');
 
-Route::get('/admin/products',[AdminProductController::class, 'index'])->name('admin.products');
-Route::get('/admin/product/create',[AdminProductController::class,'create'])->name('product.create');
-Route::post('/admin/product/store',[AdminProductController::class,'store'])->name('product.store');
-// Route::get('/product/view/{id}',[AdminProductController::class,'view'])->name('product.view');
-Route::get('/admin/product/edit/{id}',[AdminProductController::class,'edit'])->name('product.edit');
-Route::post('/admin/product/update/{id}',[AdminProductController::class,'update'])->name('product.update');
-Route::get('/admin/product/delete/{id}',[AdminProductController::class,'delete'])->name('product.delete');
+    Route::get('/admin/products', [AdminProductController::class, 'index'])->name('admin.products');
+    Route::get('/admin/product/create', [AdminProductController::class, 'create'])->name('product.create');
+    Route::post('/admin/product/store', [AdminProductController::class, 'store'])->name('product.store');
+    // Route::get('/product/view/{id}',[AdminProductController::class,'view'])->name('product.view');
+    Route::get('/admin/product/edit/{id}', [AdminProductController::class, 'edit'])->name('product.edit');
+    Route::post('/admin/product/update/{id}', [AdminProductController::class, 'update'])->name('product.update');
+    Route::get('/admin/product/delete/{id}', [AdminProductController::class, 'delete'])->name('product.delete');
 
-Route::get('/ajax-get-products', [AdminProductController::class,'ajaxGetProducts'])->name('ajax-get-products');
-Route::post('/ajax-update-order', [AdminProductController::class,'ajaxUpdateOrder'])->name('ajax-update-order');
-Route::post('/ajax-product-types',[AdminProductController::class,'ajaxProductTypes'])->name('ajax-product-types');
-Route::post('/ajax-packaging-options',[AdminProductController::class,'ajaxPackagingOptions'])->name('ajax-packaging-options');
-
+    Route::get('/ajax-get-products', [AdminProductController::class, 'ajaxGetProducts'])->name('ajax-get-products');
+    Route::post('/ajax-update-order', [AdminProductController::class, 'ajaxUpdateOrder'])->name('ajax-update-order');
+    Route::post('/ajax-product-types', [AdminProductController::class, 'ajaxProductTypes'])->name('ajax-product-types');
+    Route::post('/ajax-packaging-options', [AdminProductController::class, 'ajaxPackagingOptions'])->name('ajax-packaging-options');
 });

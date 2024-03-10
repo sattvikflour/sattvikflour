@@ -1,27 +1,27 @@
 @extends('admin.layouts.layout')
 @section('css')
-<style>
-    /*hide element intially*/
-#prod-offer-price-container,
-#prod-badge-text-container,
-#prod-type-label-container,
-#packaging-opts-label-container {
-    display: none;
-}
-</style>
+    <style>
+        /*hide element intially*/
+        #prod-offer-price-container,
+        #prod-badge-text-container,
+        #prod-type-label-container,
+        #packaging-opts-label-container {
+            display: none;
+        }
+    </style>
 @endsection
 
 @section('content')
     <div class="container">
-        <form id="product-form" method="POST" action="{{route('product.store')}}" enctype="multipart/form-data" novalidate>
+        <form id="product-form" method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data" novalidate>
             @csrf
             <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
                 <label for="category-dropdown">Select Product Category:<br> <br>
-                <select id="category-dropdown" name="product-category" style="height:40px;width:200px">
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}" >{{ $category->category_name }}</option>
-                    @endforeach
-                </select>
+                    <select id="category-dropdown" name="product-category" style="height:40px;width:200px">
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                        @endforeach
+                    </select>
                 </label>
             </div>
             <div class="form-group">
@@ -31,8 +31,10 @@
             </div>
             <div class="form-group">
                 <label for="prod-original-price">Original Price:</label>
-                <input type="number" class="form-control" id="prod-original-price" name="prod-original-price" step="0.01" required>
-                <small id="prod-original-price-error" class="text-danger" style="display: none;">This field is required</small>
+                <input type="number" class="form-control" id="prod-original-price" name="prod-original-price"
+                    step="0.01" required>
+                <small id="prod-original-price-error" class="text-danger" style="display: none;">This field is
+                    required</small>
 
             </div>
             <div class="form-group">
@@ -96,7 +98,8 @@
             <div class="form-group" id="prod-type-label-container">
                 <label for="prod-type-label">Product Type Label:</label>
                 <input type="text" class="form-control" id="prod-type-label" name="prod-type-label">
-                <small id="prod-type-label-error" class="text-danger" style="display: none;">This field is required</small>
+                <small id="prod-type-label-error" class="text-danger" style="display: none;">This field is
+                    required</small>
             </div>
             <div class="form-group">
                 <label for="packaging-opts-avail">Packaging Options Available:</label>
@@ -108,7 +111,8 @@
             <div class="form-group" id="packaging-opts-label-container">
                 <label for="packaging-opts-label">Packaging Options Label:</label>
                 <input type="text" class="form-control" id="packaging-opts-label" name="packaging-opts-label">
-                <small id="packaging-opts-label-error" class="text-danger" style="display: none;">This field is required</small>
+                <small id="packaging-opts-label-error" class="text-danger" style="display: none;">This field is
+                    required</small>
             </div>
             <div class="form-group">
                 <label for="prod-specs-avail">Product Specifications Available:</label>
@@ -128,100 +132,96 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-
 @endsection
 
 @section('javascript')
-    
-<script>
+    <script>
+        //Display and Hide according to choice
 
-    //Display and Hide according to choice
+        $(document).ready(function() {
+            $('#prod-offer-status').change(function() {
+                var offerStatus = $(this).val();
+                if (offerStatus === '1') {
+                    $('#prod-offer-price-container').css('display', 'block');
+                    $('#prod-offer-price').attr('required', true);
+                } else {
+                    $('#prod-offer-price-container').css('display', 'none');
+                    $('#prod-offer-price').removeAttr('required');
+                }
+            });
 
-$(document).ready(function(){
-    $('#prod-offer-status').change(function() {
-        var offerStatus = $(this).val();
-        if (offerStatus === '1') {
-            $('#prod-offer-price-container').css('display', 'block');
-            $('#prod-offer-price').attr('required', true);
-        } else {
-            $('#prod-offer-price-container').css('display', 'none');
-            $('#prod-offer-price').removeAttr('required');
-        }
-    });
+            // Display and Hide according to choice for prod-badge-status dropdown
+            $('#prod-badge-status').change(function() {
+                var badgeStatus = $(this).val();
+                if (badgeStatus === '1') {
+                    $('#prod-badge-text-container').css('display', 'block');
+                    $('#prod-badge-text').attr('required', true);
+                } else {
+                    $('#prod-badge-text-container').css('display', 'none');
+                    $('#prod-badge-text').removeAttr('required');
+                }
+            });
 
-    // Display and Hide according to choice for prod-badge-status dropdown
-$('#prod-badge-status').change(function() {
-    var badgeStatus = $(this).val();
-    if (badgeStatus === '1') {
-        $('#prod-badge-text-container').css('display', 'block');
-        $('#prod-badge-text').attr('required', true);
-    } else {
-        $('#prod-badge-text-container').css('display', 'none');
-        $('#prod-badge-text').removeAttr('required');
-    }
-});
+            // Display and Hide according to choice for prod-types-avail dropdown
+            $('#prod-types-avail').change(function() {
+                var typesAvail = $(this).val();
+                if (typesAvail === '1') {
+                    $('#prod-type-label-container').css('display', 'block');
+                    $('#prod-type-label').attr('required', true);
+                } else {
+                    $('#prod-type-label-container').css('display', 'none');
+                    $('#prod-type-label').removeAttr('required');
+                }
+            });
 
-// Display and Hide according to choice for prod-types-avail dropdown
-$('#prod-types-avail').change(function() {
-    var typesAvail = $(this).val();
-    if (typesAvail === '1') {
-        $('#prod-type-label-container').css('display', 'block');
-        $('#prod-type-label').attr('required', true);
-    } else {
-        $('#prod-type-label-container').css('display', 'none');
-        $('#prod-type-label').removeAttr('required');
-    }
-});
-
-// Display and Hide according to choice for packaging-opts-avail dropdown
-$('#packaging-opts-avail').change(function() {
-    var packagingOpts = $(this).val();
-    if (packagingOpts === '1') {
-        $('#packaging-opts-label-container').css('display', 'block');
-        $('#packaging-opts-label').attr('required', true);
-    } else {
-        $('#packaging-opts-label-container').css('display', 'none');
-        $('#packaging-opts-label').removeAttr('required');
-    }
-});
-});
-
-$(document).ready(function() {
-    $('#product-form').submit(function(event) {
-        var isValid = true; // Initialize isValid variable
-
-        $('.form-control').each(function() {
-            if ($(this).prop('required') && !$(this).val()) {
-                isValid = false;
-                var errorId = $(this).attr('id') + '-error';
-                $('#' + errorId).show(); // Show error message
-            } else {
-                var errorId = $(this).attr('id') + '-error';
-                $('#' + errorId).hide(); // Hide error message if input is not empty
-            }
+            // Display and Hide according to choice for packaging-opts-avail dropdown
+            $('#packaging-opts-avail').change(function() {
+                var packagingOpts = $(this).val();
+                if (packagingOpts === '1') {
+                    $('#packaging-opts-label-container').css('display', 'block');
+                    $('#packaging-opts-label').attr('required', true);
+                } else {
+                    $('#packaging-opts-label-container').css('display', 'none');
+                    $('#packaging-opts-label').removeAttr('required');
+                }
+            });
         });
 
-        if (!isValid) {
-            var firstError = document.querySelector('.text-danger');
-            var navbarHeight = $('#navbar').outerHeight() + 35; // Adjusted navbar height with 5px added
+        $(document).ready(function() {
+            $('#product-form').submit(function(event) {
+                var isValid = true; // Initialize isValid variable
 
-            if (firstError) {
-                event.preventDefault(); // Prevent form submission
-                var errorPosition = firstError.getBoundingClientRect().top + window.scrollY;
-                window.scrollTo({
-                    top: errorPosition - navbarHeight,
-                    behavior: 'smooth'
+                $('.form-control').each(function() {
+                    if ($(this).prop('required') && !$(this).val()) {
+                        isValid = false;
+                        var errorId = $(this).attr('id') + '-error';
+                        $('#' + errorId).show(); // Show error message
+                    } else {
+                        var errorId = $(this).attr('id') + '-error';
+                        $('#' + errorId).hide(); // Hide error message if input is not empty
+                    }
                 });
-            }
-        }
-    });
 
-    $('.form-control').change(function() {
-        var errorId = $(this).attr('id') + '-error';
-        $('#' + errorId).hide();
-    });
-});
+                if (!isValid) {
+                    var firstError = document.querySelector('.text-danger');
+                    var navbarHeight = $('#navbar').outerHeight() +
+                    35; // Adjusted navbar height with 5px added
 
-</script>
+                    if (firstError) {
+                        event.preventDefault(); // Prevent form submission
+                        var errorPosition = firstError.getBoundingClientRect().top + window.scrollY;
+                        window.scrollTo({
+                            top: errorPosition - navbarHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
 
+            $('.form-control').change(function() {
+                var errorId = $(this).attr('id') + '-error';
+                $('#' + errorId).hide();
+            });
+        });
+    </script>
 @endsection

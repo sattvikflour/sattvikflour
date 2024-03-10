@@ -1,110 +1,111 @@
   <!-- info section -->
   <section class="info_section layout_padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <div class="info_contact">
-            <div class="info_logo">
-              <a href="index.html">
-                <span>
-                  Sattvik Flour
-                </span>
-              </a>
-            </div>
-            <h5>
-              Contact Us
-            </h5>
-            <div>
-              <div class="img-box">
-                <img src="{{ asset('public/assets/icons/location.png') }}" width="18px" alt="" />
+      <div class="container">
+          <div class="row">
+              <div class="col-md-3">
+                  <div class="info_contact">
+                      <div class="info_logo">
+                          <a href="index.html">
+                              <span>
+                                  Sattvik Flour
+                              </span>
+                          </a>
+                      </div>
+                      <h5>
+                          Contact Us
+                      </h5>
+                      <div>
+                          <div class="img-box">
+                              <img src="{{ asset('public/assets/icons/location.png') }}" width="18px" alt="" />
+                          </div>
+                          <p>
+                              Dighi, Pune
+                          </p>
+                      </div>
+                      <div>
+                          <div class="img-box">
+                              <img src="{{ asset('public/assets/icons/phone.png') }}" width="18px" alt="" />
+                          </div>
+                          <p>
+                              +91 9175113022
+                          </p>
+                      </div>
+                      <div>
+                          <div class="img-box">
+                              <img src="{{ asset('public/assets/icons/envelope.png') }}" width="18px"
+                                  alt="" />
+                          </div>
+                          <p>
+                              care@sattvik.com
+                          </p>
+                      </div>
+                  </div>
               </div>
-              <p>
-                Dighi, Pune
-              </p>
-            </div>
-            <div>
-              <div class="img-box">
-                <img src="{{ asset('public/assets/icons/phone.png') }}" width="18px" alt="" />
+              <div class="col-md-3">
+                  <div class="info_info">
+                      <h5>
+                          Address
+                      </h5>
+                      <p>
+                          Shop No. 123, Abcd Nagar, Pune , 400111
+                      </p>
+                  </div>
               </div>
-              <p>
-                +91 9175113022
-              </p>
-            </div>
-            <div>
-              <div class="img-box">
-                <img src="{{ asset('public/assets/icons/envelope.png') }}" width="18px" alt="" />
-              </div>
-              <p>
-                care@sattvik.com
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="info_info">
-            <h5>
-              Address
-            </h5>
-            <p>
-           Shop No. 123,  Abcd Nagar, Pune , 400111
-            </p>
-          </div>
-        </div>
 
-        <div class="col-md-3">
-          <div class="info_links">
-            <h5>
-              Useful Links
-            </h5>
-            <ul>
-              <li>
-                <a href="">
-                  Link 1
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  Link 2
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  Link 3
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  Link 4
-                </a>
-              </li>
-            </ul>
+              <div class="col-md-3">
+                  <div class="info_links">
+                      <h5>
+                          Useful Links
+                      </h5>
+                      <ul>
+                          <li>
+                              <a href="">
+                                  Link 1
+                              </a>
+                          </li>
+                          <li>
+                              <a href="">
+                                  Link 2
+                              </a>
+                          </li>
+                          <li>
+                              <a href="">
+                                  Link 3
+                              </a>
+                          </li>
+                          <li>
+                              <a href="">
+                                  Link 4
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-md-3">
+                  <div class="info_form ">
+                      <h5>
+                          Newsletter
+                      </h5>
+                      <form action="">
+                          <input type="email" placeholder="Enter your email" />
+                          <button>
+                              Subscribe
+                          </button>
+                      </form>
+                  </div>
+              </div>
           </div>
-        </div>
-        <div class="col-md-3">
-          <div class="info_form ">
-            <h5>
-              Newsletter
-            </h5>
-            <form action="">
-              <input type="email" placeholder="Enter your email" />
-              <button>
-                Subscribe
-              </button>
-            </form>
-          </div>
-        </div>
       </div>
-    </div>
   </section>
 
   <!-- end info_section -->
 
   <!-- footer section -->
   <section class="container-fluid footer_section">
-    <p>
-      &copy; 2023 All Rights Reserved By
-      <a href="#">Abhijit Abdagire</a>
-    </p>
+      <p>
+          &copy; 2023 All Rights Reserved By
+          <a href="#">Abhijit Abdagire</a>
+      </p>
   </section>
   <!-- footer section -->
 
@@ -116,7 +117,7 @@
   <script src="{{ asset('public/js/checkout.js') }}"></script>
   <script src="{{ asset('public/js/owl.carousel.js') }}"></script>
   <script src="{{ asset('public/js/index.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   {{-- @if (Session::get('status') == 'error') --}}
   {{-- <script type="text/javascript">      
       Swal.fire({
@@ -128,27 +129,27 @@
         timer: 5000
       });
       </script> --}}
-      {{-- @endif --}}
-      <!-- owl carousel script -->
-      <script type="text/javascript">
-    $(document).ready(function() {
-      $(".owl-carousel").owlCarousel({
-        loop: true,
-        margin: 0,
-      navText: [],
-      center: true,
-      autoplay: true,
-      autoplayHoverPause: true,
-      responsive: {
-        0: {
-          items: 1
-        },
-        1000: {
-          items: 3
-        }
-      }
-    });
-  });
+  {{-- @endif --}}
+  <!-- owl carousel script -->
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $(".owl-carousel").owlCarousel({
+              loop: true,
+              margin: 0,
+              navText: [],
+              center: true,
+              autoplay: true,
+              autoplayHoverPause: true,
+              responsive: {
+                  0: {
+                      items: 1
+                  },
+                  1000: {
+                      items: 3
+                  }
+              }
+          });
+      });
   </script>
 
   <script>
@@ -156,14 +157,14 @@
       $(document).on('click', '.toggle-password', function() {
           $(this).toggleClass("zmdi zmdi-eye-off");
           var input = $("#password");
-          input.attr('type') === 'password' ? input.attr('type','text') : input.attr('type','password')
+          input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password')
       });
       setTimeout(() => {
           $('.alert.alert-success').fadeOut('slow');
       }, 5000);
   </script>
   <!-- end owl carousel script -->
-@yield('scripts')
-</body>
+  @yield('scripts')
+  </body>
 
-</html>
+  </html>
