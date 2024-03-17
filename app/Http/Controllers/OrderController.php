@@ -7,11 +7,59 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
+
+    public function orderDetails(Request $request)
+    {
+        // dd($request);
+        try {
+            $validator = Validator::make($request->all(),[
+                'product-id' => 'required|exists:products,id',
+                'quantity' => 'required|numeric'
+            ]);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                return response()->json(['status' => 'error', 'message' => 'Validation Error','errors'=>$errors], 400);
+            }
+            $productId = $request->input('product-id');
+            $productName = $request->input('product-name');
+            $productType = $request->input('product-type')??null;
+            $packagingOption = $request->input('packaging') ?? null;
+            $quantity = $request->input('quantity');
+            $productUnitPrice = Product::where('id', $productId)
+                ->selectRaw('CASE WHEN prod_offer_status = 1 THEN prod_offer_price ELSE prod_original_price END AS product_unit_price')
+                ->value('product_unit_price');
+
+            $productSubTotalPrice = floatval($productUnitPrice) * intval($quantity);
+            $productTotalPrice = $packagingOption!=null? floatval($productSubTotalPrice) * intval($packagingOption) : $productSubTotalPrice;
+            // dd($productTotalPrice , $productName);
+            $orderData = [
+                'productId' => $productId,
+                'productName' => $productName,
+                'productType' => $productType,
+                'packagingOption' => $packagingOption,
+                'quantity' => $quantity,
+                'productTotalPrice' =>$productTotalPrice
+            ];
+
+            return view('website.checkout', compact('orderData'));
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function cartCheckout(){
+
+        $cartData = Session::get('cart', []);
+
+        return view('website.cart_checkout',compact('cartData'));
+    }
+
     public function store(Request $request)
     {
         try {
@@ -46,17 +94,16 @@ class OrderController extends Controller
                 'discounts' => $request->discounts,
                 'tax_amount' => $request->tax_amount,
                 'shipping_fee' => $request->shipping_fee,
-                'tracking_number' => Str::random(2).Str::random(5).Str::random(5),
+                'tracking_number' => Str::random(2) . Str::random(5) . Str::random(5),
             ]);
 
             $order->save();
 
-            $order_id = Order::where('user_id', $request->user_id)->pluck('id')->first();
+            $orderId = $order->id;
 
             foreach ($request->order_products as $product) {
-                // $product_name = Product::where('id',$product['product_id'])->pluck('prod_name')->first();
                 OrderDetail::create([
-                    'order_id' => $order_id,
+                    'order_id' => $orderId,
                     'product_id' => $product['product_id'],
                     'product_name' => $product['product_name'],
                     'quantity' => $product['quantity'],
@@ -65,11 +112,11 @@ class OrderController extends Controller
                 ]);
             }
 
-            return response()->json(['status' => 'success','message' => 'Order created successfully', 'order' => $order], 201);
+            return response()->json(['status' => 'success', 'message' => 'Order created successfully', 'order' => $order], 201);
         } catch (QueryException $e) {
-            return response()->json(['status' => 'error','message' => 'Error saving order: ' . $e->getMessage()], 500);
+            return response()->json(['status' => 'error', 'message' => 'Error saving order: ' . $e->getMessage()], 500);
         } catch (\Exception $e) {
-            return response()->json(['status' => 'error','message' => 'An unexpected error occurred: ' . $e->getMessage()], 500);
+            return response()->json(['status' => 'error', 'message' => 'An unexpected error occurred: ' . $e->getMessage()], 500);
         }
     }
 }

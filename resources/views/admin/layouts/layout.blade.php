@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}"> 
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('public/css/admin.css') }}">
     @yield('css')
 </head>
@@ -85,6 +87,7 @@
     <script src="{{ asset('public/js/popper.min.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap.js') }}"></script>
     <script src="{{ asset('public/js/admin.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     @yield('javascript')
 </body>
 </html>

@@ -182,7 +182,7 @@
             });
             var csrfToken = '{{ csrf_token() }}';
             $.ajax({
-                url: "{{ URL::to('ajax-update-order') }}",
+                url: "{{ URL::to('ajax-update-product-order') }}",
                 type: "POST",
                 headers: {
                     'X-CSRF-TOKEN': csrfToken

@@ -3,6 +3,15 @@
 @include('website.partials.cart')
 <!-- end cart section -->
 @include('website.partials.login')
+<style>
+    .even {
+        background-color: #b7b2b2;
+    }
+
+    .odd {
+        background-color: #ffffff;
+    }
+</style>
 {{-- @php 
   //dd($product) 
  @endphp --}}
@@ -38,51 +47,52 @@
                     <span class="checkout-label">Quantity</span>
                     <span class="checkout-label">Price</span>
                 </li>
-                {{-- @foreach ($cartData as $item) --}}
-                    <li class="checkout-item">
-                        <span class="product-name"><b>{{ $orderData['productName']}}</b><br>
-                            @if ($orderData['productType'] != null)
-                                {{ ucwords(str_replace('-', ' ', $orderData['productType'])) }}
+                @foreach ($cartData as $index => $item)
+                    <li class="checkout-item @if ($index % 2 == 0) even @else odd @endif">
+                        <span class="product-name">{{ $item['productName'] }}<br>
+                            @if ($item['productType'] != null)
+                                {{ ucwords(str_replace('-', ' ', $item['productType'])) }}
                             @endif
-                            @if ($orderData['packagingOption'] != null)
-                                {{ $orderData['packagingOption'] }}Kg
+                            @if ($item['packagingOption'] != null)
+                                {{ $item['packagingOption'] }}Kg
                             @endif
                         </span>
-                        <span>{{ $orderData['quantity'] }}</span>
-                        <span>Rs.{{ $orderData['productTotalPrice'] }}</span>
+                        <span>{{ $item['quantity'] }}</span>
+                        <span>${{ $item['productPrice'] }}</span>
                     </li>
+                @endforeach
             </ul>
 
             <hr class="checkout-divider">
 
             <div class="checkout-item">
                 <span class="checkout-label">Sub-total:</span>
-                <span>Rs.{{ $subtotal }}</span>
+                <span>${{ $subtotal }}</span>
             </div>
             <div class="checkout-item">
-                <span class="checkout-label">GST (5%):</span>
-                <span>Rs.{{ $taxes }}</span>
+                <span class="checkout-label">Taxes (5%):</span>
+                <span>${{ $taxes }}</span>
             </div>
             <div class="checkout-item">
                 <span class="checkout-label">Delivery Fee:</span>
-                <span>Rs.{{ $deliveryFee }}</span>
+                <span>${{ $deliveryFee }}</span>
             </div>
             <div class="checkout-item">
                 <span class="checkout-label">Discount:</span>
-                <span>Rs.{{ $discount }}</span>
+                <span>${{ $discount }}</span>
             </div>
             <hr class="checkout-divider">
 
             <div class="checkout-item total-amount">
                 <span class="checkout-label">Total Payable Amount:</span>
-                <span>Rs.{{ $totalAmount }}</span>
+                <span>${{ $totalAmount }}</span>
             </div>
         </div>
         <div class="col-md-6">
             <div class="delivery-details">
                 <h3>Delivery Details</h3>
                 <!-- Add the delivery address and change address button here -->
-                <p>Delivery Address: <span id="currentAddress">At. Phaltan, Tal: Phaltan, Dist Satara</span></p>
+                <p>Delivery Address: Your Address Here</p>
                 <button class="btn btn-primary">Change Address</button>
 
                 <hr>
