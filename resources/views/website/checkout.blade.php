@@ -35,22 +35,24 @@
             <ul class="checkout-list">
                 <li class="checkout-item">
                     <span class="checkout-label">Product Name</span>
+                    <span class="checkout-label">Unit Price</span>
                     <span class="checkout-label">Quantity</span>
-                    <span class="checkout-label">Price</span>
+                    <span class="checkout-label">Tax</span>
+                    <span class="checkout-label">Total</span>
                 </li>
                 {{-- @foreach ($cartData as $item) --}}
-                    <li class="checkout-item">
-                        <span class="product-name"><b>{{ $orderData['productName']}}</b><br>
-                            @if ($orderData['productType'] != null)
-                                {{ ucwords(str_replace('-', ' ', $orderData['productType'])) }}
-                            @endif
-                            @if ($orderData['packagingOption'] != null)
-                                {{ $orderData['packagingOption'] }}Kg
-                            @endif
-                        </span>
-                        <span>{{ $orderData['quantity'] }}</span>
-                        <span>Rs.{{ $orderData['productTotalPrice'] }}</span>
-                    </li>
+                <li class="checkout-item">
+                    <span class="product-name"><b>{{ $orderData['productName'] }}</b><br>
+                        @if ($orderData['productType'] != null)
+                            {{ ucwords(str_replace('-', ' ', $orderData['productType'])) }}
+                        @endif
+                        @if ($orderData['packagingOption'] != null)
+                            {{ $orderData['packagingOption'] }}Kg
+                        @endif
+                    </span>
+                    <span>{{ $orderData['quantity'] }}</span>
+                    <span>Rs.{{ $orderData['productTotalPrice'] }}</span>
+                </li>
             </ul>
 
             <hr class="checkout-divider">

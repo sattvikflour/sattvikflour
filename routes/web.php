@@ -68,7 +68,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/product/delete/{id}', [AdminProductController::class, 'delete'])->name('product.delete');
 
     Route::get('/ajax-get-products', [AdminProductController::class, 'ajaxGetProducts'])->name('ajax-get-products');
-    Route::post('/ajax-update-product-order', [AdminProductController::class, 'ajaxUpdateOrder'])->name('ajax-update-product-order');
+    Route::post('/ajax-update-product-order', [AdminProductController::class, 'ajaxUpdateListOrder'])->name('ajax-update-product-order');
     Route::post('/ajax-product-types', [AdminProductController::class, 'ajaxProductTypes'])->name('ajax-product-types');
     Route::post('/ajax-packaging-options', [AdminProductController::class, 'ajaxPackagingOptions'])->name('ajax-packaging-options');
     Route::get('/ajax-product-chart-by-category', [AdminPanelController::class, 'ajaxProductPieChart'])->name('ajax-product-chart-by-category');

@@ -241,7 +241,7 @@ class AdminProductController extends Controller
         ]);
     }
 
-    public function ajaxUpdateOrder(Request $request)
+    public function ajaxUpdateListOrder(Request $request)
     {
         try {
             $orderData = $request->input('order_data');

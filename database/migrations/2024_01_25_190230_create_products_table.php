@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('prod_badge_text')->nullable();
             $table->boolean('multi_img_avail')->default(0);
             $table->string('prod_img');
+            $table->string('prod_unit');
             $table->text('prod_details')->nullable();
             $table->text('prod_description')->nullable();
             $table->text('prod_summary')->nullable();
